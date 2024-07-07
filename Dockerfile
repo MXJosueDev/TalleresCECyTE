@@ -39,6 +39,8 @@ FROM httpd:2.4
 COPY --from=php-composer /app /usr/local/apache2/htdocs/
 COPY --from=node-build /app /usr/local/apache2/htdocs/
 
+COPY ./ /usr/local/apache2/htdocs/
+
 # Configura DocumentRoot
 RUN sed -i 's#DocumentRoot "/usr/local/apache2/htdocs"#DocumentRoot "/usr/local/apache2/htdocs/public"#g' /usr/local/apache2/conf/httpd.conf
 RUN sed -i 's#ServerName localhost:80#ServerName 0.0.0.0:80#g' /usr/local/apache2/conf/httpd.conf
