@@ -56,7 +56,7 @@ RUN echo "PASSWORD=${PASSWORD}" >> /usr/local/apache2/htdocs/.env
 RUN echo "DATABASE=${DATABASE}" >> /usr/local/apache2/htdocs/.env
 RUN echo "PORT=${PORT}" >> /usr/local/apache2/htdocs/.env
 
-CMD ["httpd","-D","FOREGROUND"]
+CMD ["httpd-foreground"]
 
 # Exponer el puerto 80
 EXPOSE 80
