@@ -1,0 +1,7 @@
+RewriteEngine On
+
+RewriteRule ^$ nav.php
+RewriteRule ^(talleres|comentarios|ayuda)/?$ nav.php?nav=$1
+
+RewriteRule ^taller/(registro|lista)/([0-9]+)/?$ taller.php?view=$1&workshop=$2 
+RewriteRule ^taller/print/([0-9]+)/?$ printLista.php?workshop=$1 
