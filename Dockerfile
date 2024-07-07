@@ -10,6 +10,10 @@ COPY ./ /app
 # Define el directorio de trabajo
 WORKDIR /app
 
+# Instala los paquetes necesarios para el build
+RUN apt-get update && apt-get install -y zip unzip
+RUN apt-get update && apt-get install -y git
+
 # Instala dependencias de Composer
 RUN composer install --no-interaction --no-scripts
 
