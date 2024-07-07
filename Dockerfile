@@ -11,10 +11,10 @@ COPY ./ /app
 WORKDIR /app
 
 # Instala dependencias de Composer
-RUN composer install --no-interaction --no-scripts --no-autoloader
+RUN composer install --no-interaction --no-scripts
 
 # Stage 2: Build stage for Node.js
-FROM node:16 AS node-build
+FROM node:22 AS node-build
 
 # Copia los archivos de la aplicación al contenedor
 COPY ./ /app
