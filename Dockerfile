@@ -38,12 +38,8 @@ FROM php:8.0-apache
 COPY --from=php-composer /app /var/www/html/
 COPY --from=node-build /app /var/www/html/
 
-# Instala los módulos necesarios de Apache y PHP
-RUN apt-get update && apt-get install -y libapache2-mod-php
-
 # Habilita el módulo de reescritura de Apache y la configuración de .htaccess
 RUN a2enmod rewrite
-RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # Configura DocumentRoot
 RUN sed -i 's#DocumentRoot "/var/www/html"#DocumentRoot "/var/www/html/public"#g' /etc/apache2/sites-available/000-default.conf
