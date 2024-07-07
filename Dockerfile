@@ -42,7 +42,7 @@ COPY --from=node-build /app /var/www/html/
 RUN a2enmod rewrite
 
 # Configura DocumentRoot
-RUN sed -i 's#DocumentRoot "/var/www/html"#DocumentRoot "/var/www/html/public"#g' /etc/apache2/sites-available/000-default.conf
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
 # Define variables de entorno para la base de datos
 ARG HOSTNAME
