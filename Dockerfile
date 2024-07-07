@@ -11,8 +11,7 @@ COPY ./ /app
 WORKDIR /app
 
 # Instala los paquetes necesarios para el build
-RUN apt-get update && apt-get install -y zip unzip
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y zip unzip git
 
 # Instala dependencias de Composer
 RUN composer install --no-interaction --no-scripts
@@ -32,19 +31,22 @@ RUN npm install
 # Ejecuta el build de NPM
 RUN npm run build
 
-# Stage 3: Final stage using httpd
-FROM httpd:2.4
+# Stage 3: Final stage using Apache with PHP support
+FROM php:8.0-apache
 
 # Copia los archivos de la aplicación desde el stage de PHP y Node.js
-COPY --from=php-composer /app /usr/local/apache2/htdocs/
-COPY --from=node-build /app /usr/local/apache2/htdocs/
+COPY --from=php-composer /app /var/www/html/
+COPY --from=node-build /app /var/www/html/
 
-COPY ./ /usr/local/apache2/htdocs/
+# Instala los módulos necesarios de Apache y PHP
+RUN apt-get update && apt-get install -y libapache2-mod-php
+
+# Habilita el módulo de reescritura de Apache y la configuración de .htaccess
+RUN a2enmod rewrite
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # Configura DocumentRoot
-RUN sed -i 's#DocumentRoot "/usr/local/apache2/htdocs"#DocumentRoot "/usr/local/apache2/htdocs/public"#g' /usr/local/apache2/conf/httpd.conf
-RUN sed -i 's#ServerName localhost:80#ServerName 0.0.0.0:80#g' /usr/local/apache2/conf/httpd.conf
-RUN sed -i 's#Listen 80#Listen 0.0.0.0:80#g' /usr/local/apache2/conf/httpd.conf
+RUN sed -i 's#DocumentRoot "/var/www/html"#DocumentRoot "/var/www/html/public"#g' /etc/apache2/sites-available/000-default.conf
 
 # Define variables de entorno para la base de datos
 ARG HOSTNAME
@@ -54,13 +56,11 @@ ARG DATABASE
 ARG PORT
 
 # Crea el archivo .env con los valores de la base de datos
-RUN echo "HOSTNAME=${DB_HOST}" > /usr/local/apache2/htdocs/.env
-RUN echo "USERNAME=${USERNAME}" >> /usr/local/apache2/htdocs/.env
-RUN echo "PASSWORD=${PASSWORD}" >> /usr/local/apache2/htdocs/.env
-RUN echo "DATABASE=${DATABASE}" >> /usr/local/apache2/htdocs/.env
-RUN echo "PORT=${PORT}" >> /usr/local/apache2/htdocs/.env
-
-CMD ["httpd-foreground"]
+RUN echo "HOSTNAME=${DB_HOST}" > /var/www/html/.env
+RUN echo "USERNAME=${USERNAME}" >> /var/www/html/.env
+RUN echo "PASSWORD=${PASSWORD}" >> /var/www/html/.env
+RUN echo "DATABASE=${DATABASE}" >> /var/www/html/.env
+RUN echo "PORT=${PORT}" >> /var/www/html/.env
 
 # Exponer el puerto 80
 EXPOSE 80
