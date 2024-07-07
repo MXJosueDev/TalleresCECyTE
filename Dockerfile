@@ -43,8 +43,6 @@ COPY ./ /usr/local/apache2/htdocs/
 
 # Configura DocumentRoot
 RUN sed -i 's#DocumentRoot "/usr/local/apache2/htdocs"#DocumentRoot "/usr/local/apache2/htdocs/public"#g' /usr/local/apache2/conf/httpd.conf
-RUN sed -i 's#ServerName localhost:80#ServerName 0.0.0.0:80#g' /usr/local/apache2/conf/httpd.conf
-RUN sed -i 's#Listen 80#Listen 0.0.0.0:80#g' /usr/local/apache2/conf/httpd.conf
 
 # Define variables de entorno para la base de datos
 ARG HOSTNAME
@@ -59,8 +57,6 @@ RUN echo "USERNAME=${USERNAME}" >> /usr/local/apache2/htdocs/.env
 RUN echo "PASSWORD=${PASSWORD}" >> /usr/local/apache2/htdocs/.env
 RUN echo "DATABASE=${DATABASE}" >> /usr/local/apache2/htdocs/.env
 RUN echo "PORT=${PORT}" >> /usr/local/apache2/htdocs/.env
-
-CMD ["httpd-foreground"]
 
 # Exponer el puerto 80
 EXPOSE 80
