@@ -51,18 +51,16 @@ ARG PASSWORD
 ARG DATABASE
 ARG PORT
 
+ARG ADMIN_PASSWORD
+
 # Crea el archivo .env con los valores de la base de datos
-RUN echo "HOSTNAME=${DB_HOST}" > /var/www/html/.env
+RUN echo "HOSTNAME=${HOSTNAME}" > /var/www/html/.env
 RUN echo "USERNAME=${USERNAME}" >> /var/www/html/.env
 RUN echo "PASSWORD=${PASSWORD}" >> /var/www/html/.env
 RUN echo "DATABASE=${DATABASE}" >> /var/www/html/.env
 RUN echo "PORT=${PORT}" >> /var/www/html/.env
 
-RUN echo "HOSTNAME=${DB_HOST}"
-RUN echo "USERNAME=${USERNAME}"
-RUN echo "PASSWORD=${PASSWORD}"
-RUN echo "DATABASE=${DATABASE}"
-RUN echo "PORT=${PORT}"
+RUN echo "ADMIN_PASSWORD=${ADMIN_PASSWORD}" >> /var/www/html/.env
 
 # Exponer el puerto 80
 EXPOSE 80

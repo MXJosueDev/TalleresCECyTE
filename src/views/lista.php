@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use MXJosueDev\TalleresCecyte\lib\DB;
 
 $recordsStmt = $conn->prepare(DB::QUERIES['get_all_records']);
-$recordsStmt->bind_param("i", $workshop);
+$recordsStmt->bind_param("i", $commentary);
 
 if ($recordsStmt) {
     if ($recordsStmt->execute()) {
@@ -16,7 +16,7 @@ if ($recordsStmt) {
 ?>
 
 <div class="bg-body-tertiary py-3 px-4"> <!-- TODO: Compontent -->
-    <a href="/taller/registro/<?php echo $workshop ?>" class="fs-5">
+    <a href="/taller/registro/<?php echo $commentary ?>" class="fs-5">
         <i class="fa-solid fa-arrow-left"></i>
     </a>
 </div>
@@ -65,6 +65,6 @@ if ($recordsStmt) {
     </div>
 
     <div class="d-flex justify-content-end">
-        <a class="btn btn-success" href="/taller/print/<?php echo $workshop ?>" target="_blank">Generar lista de asistencia</a>
+        <a class="btn btn-success" href="/taller/print/<?php echo $commentary ?>" target="_blank">Generar lista de asistencia</a>
     </div>
 </div>

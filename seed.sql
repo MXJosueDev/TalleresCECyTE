@@ -42,7 +42,7 @@ SELECT
     `w`.`image_url`,
     `w`.`max_capacity`,
     `w`.`teacher_id`,
-    CAST(COUNT(`r`.`record_id`) AS INT) AS registered
+    COUNT(`r`.`record_id`) AS registered
 FROM
     `workshop` w
     LEFT JOIN `record` r ON `w`.`workshop_id` = `r`.`workshop_id`

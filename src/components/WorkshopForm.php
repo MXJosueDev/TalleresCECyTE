@@ -92,7 +92,7 @@ if ($carieersStmt) {
 
         <div class="row g-3 mt-4">
             <div class="col-12 col-md-6">
-                <a class="btn btn-outline-primary w-100 p-3" href="/taller/lista/<?php echo $workshop ?>">Ver registrados</a>
+                <a class="btn btn-outline-primary w-100 p-3" href="/taller/lista/<?php echo $commentary ?>">Ver registrados</a>
             </div>
             <div class="col-12 col-md-6">
                 <input class="btn btn-primary w-100 p-3" type="submit" value="Registrarse">
@@ -104,7 +104,7 @@ if ($carieersStmt) {
 </form>
 
 <script>
-    const workshop = <?php echo $workshop ?>;
+    const workshop = <?php echo $commentary ?>;
     const full = <?php echo $workshopData['max_capacity'] - $workshopData['registered'] <= 0 ? "true" : "false" ?>;
 
     $(() => {

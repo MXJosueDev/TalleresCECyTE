@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 
 require_once '../../vendor/autoload.php';
 
@@ -58,10 +58,10 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
     if ($workshopDataStmt) {
         $workshopDataStmt->bind_param('i', $workshopId);
         if ($workshopDataStmt->execute()) {
-            $workshopResult = $workshopDataStmt->get_result();
-            $workshopData = $workshopResult->fetch_assoc();
+            $commentariesResult = $workshopDataStmt->get_result();
+            $workshopData = $commentariesResult->fetch_assoc();
 
-            $workshopResult->free();
+            $commentariesResult->free();
         }
     }
 

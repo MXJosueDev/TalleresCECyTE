@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -12,7 +12,7 @@ if (!isset($_GET["workshop"])) {
     return;
 }
 
-$workshop = (int) $_GET["workshop"];
+$commentary = (int) $_GET["workshop"];
 
 $db = new DB();
 $conn = $db->getConnection();
@@ -23,17 +23,17 @@ if (!$conn) {
 
 $workshopStmt = $conn->prepare(DB::QUERIES["get_workshop_data"]);
 if ($workshopStmt) {
-    $workshopStmt->bind_param("i", $workshop);
+    $workshopStmt->bind_param("i", $commentary);
     if ($workshopStmt->execute()) {
-        $workshopResult = $workshopStmt->get_result();
-        $workshopData = $workshopResult->fetch_assoc();
+        $commentariesResult = $workshopStmt->get_result();
+        $workshopData = $commentariesResult->fetch_assoc();
 
-        $workshopResult->free();
+        $commentariesResult->free();
     }
 }
 
 $recordsStmt = $conn->prepare(DB::QUERIES['get_all_records']);
-$recordsStmt->bind_param("i", $workshop);
+$recordsStmt->bind_param("i", $commentary);
 
 if ($recordsStmt) {
     if ($recordsStmt->execute()) {
