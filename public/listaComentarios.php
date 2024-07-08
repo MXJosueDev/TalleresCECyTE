@@ -2,7 +2,7 @@
 
 use MXJosueDev\TalleresCecyte\lib\Auth;
 
-error_reporting(0);
+// error_reporting(0);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
