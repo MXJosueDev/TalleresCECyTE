@@ -58,5 +58,11 @@ RUN echo "PASSWORD=${PASSWORD}" >> /var/www/html/.env
 RUN echo "DATABASE=${DATABASE}" >> /var/www/html/.env
 RUN echo "PORT=${PORT}" >> /var/www/html/.env
 
+RUN echo "HOSTNAME=${DB_HOST}"
+RUN echo "USERNAME=${USERNAME}"
+RUN echo "PASSWORD=${PASSWORD}"
+RUN echo "DATABASE=${DATABASE}"
+RUN echo "PORT=${PORT}"
+
 # Exponer el puerto 80
 EXPOSE 80
