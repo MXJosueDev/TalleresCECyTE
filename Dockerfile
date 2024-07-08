@@ -41,6 +41,9 @@ COPY --from=node-build /app /var/www/html/
 # Habilita el módulo de reescritura de Apache y la configuración de .htaccess
 RUN a2enmod rewrite
 
+# Instala el modulo mysqli
+RUN apt-get update && apt-get install -y php-mysqli
+
 # Configura DocumentRoot
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
