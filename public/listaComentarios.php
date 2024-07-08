@@ -36,7 +36,7 @@ $auth = new Auth();
                 } else {
                     $auth->renderForm();
                 }
-            } catch (Error $error) {
+            } catch (Exception $error) {
                 require $errorView;
             } ?>
         </div>

@@ -107,7 +107,7 @@ $view = $_GET["nav"] ?? "inicio";
         <div class="min-vh-100">
             <?php try {
                 require $view;
-            } catch (Error $error) {
+            } catch (Exception $error) {
                 require $errorView;
             } ?>
         </div>

@@ -66,7 +66,7 @@ if ($workshopStmt) {
         <div class="min-vh-100">
             <?php try {
                 require $view;
-            } catch (Error $error) {
+            } catch (Exception $error) {
                 require $errorView;
             } ?>
         </div>
