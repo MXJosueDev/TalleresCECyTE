@@ -1,4 +1,4 @@
-<div class="bg-body-tertiary py-3 px-4"> <!-- TODO: Compontent -->
+<div class="bg-body-tertiary py-3 px-4">
     <a href="/talleres" class="fs-5">
         <i class="fa-solid fa-arrow-left"></i>
     </a>

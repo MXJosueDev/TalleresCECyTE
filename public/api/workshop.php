@@ -1,10 +1,13 @@
 <?php
 
+use MXJosueDev\TalleresCecyte\lib\db\exception\DBExecuteException;
+
 error_reporting(0);
 
 require_once '../../vendor/autoload.php';
 
-use MXJosueDev\TalleresCecyte\lib\DB;
+use MXJosueDev\TalleresCecyte\lib\db\DB;
+use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
 use MXJosueDev\TalleresCecyte\utils\Utils;
 
 if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST["name"]) && isset($_POST["last-name"]) && isset($_POST["sex"]) && isset($_POST["career"]) && isset($_POST["semester"]) && isset($_POST["group"])) {
@@ -51,56 +54,44 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
     //     ]);
     //     exit();
     // }
-    
+
     // Sex
-    if(!in_array($sex, ["male", "female"])) {
+    if (!in_array($sex, ["male", "female"])) {
         http_response_code(400);
         echo json_encode([
             "error" => "El sexo es invalido."
         ]);
-        exit();    
+        exit();
     }
-    
+
     // Semester
-    if(!in_array($semester, ["1", "2", "3", "4", "5", "6"])) {
+    if (!in_array($semester, ["1", "2", "3", "4", "5", "6"])) {
         http_response_code(400);
         echo json_encode([
             "error" => "El semestre es invalido."
         ]);
-        exit();    
+        exit();
     }
-    
+
     // Group
-    if(!in_array($group, ["a", "b", "c"])) {
+    if (!in_array($group, ["a", "b", "c"])) {
         http_response_code(400);
         echo json_encode([
             "error" => "El grupo es invalido."
-        ]);
-        exit();    
-    }
-
-    // DB
-    $db = new DB();
-    $conn = $db->getConnection();
-    if (!$conn) {
-        http_response_code(500);
-        echo json_encode([
-            "error" => "No se pudo conectar a la base de datos."
         ]);
         exit();
     }
 
     // Get actual data
-    $workshopDataStmt = $conn->prepare(DB::QUERIES["get_workshop_data"]);
+    try {
+        $workshopData = DB::getWorkshop($workshopId);
+    } catch (DBException $dBException) {
+        http_response_code(500);
+        echo json_encode([
+            "error" => "DBError: " . $dBException->getMessage()
+        ]);
 
-    if ($workshopDataStmt) {
-        $workshopDataStmt->bind_param('i', $workshopId);
-        if ($workshopDataStmt->execute()) {
-            $workshopResult = $workshopDataStmt->get_result();
-            $workshopData = $workshopResult->fetch_assoc();
-
-            $workshopResult->free();
-        }
+        exit();
     }
 
     if ($workshopData["max_capacity"] - $workshopData["registered"] <= 0) {
@@ -111,33 +102,28 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
         exit();
     }
 
-    // Insert
-    $workshopRegisterStmt = $conn->prepare(DB::QUERIES["register_record"]);
-
-    if ($workshopRegisterStmt) {
-        $workshopRegisterStmt->bind_param('issssiss', $workshopId, $controlNumber, $name, $lastName, $sex, $careerId, $semester, $group);
-
-        try {
-            if (!$workshopRegisterStmt->execute()) {
-                http_response_code(500);
-                echo json_encode([
-                    "error" => "No se pudo guardar el registro (Probablemente el numero de control ya fue registrado)"
-                ]);
-                exit();
-            }
-        } catch (Exception $exception) {
+    // Insert: 
+    try {
+        DB::registerRecord((int) $workshopId, $controlNumber, $name, $lastName, $sex, (int) $careerId, $semester, $group);
+    } catch (DBException $dBException) {
+        if ($dBException instanceof DBExecuteException) {
             http_response_code(500);
             echo json_encode([
                 "error" => "No se pudo guardar el registro (Probablemente el numero de control ya fue registrado)"
             ]);
+
             exit();
         }
+
+        echo json_encode([
+            "error" => "DBError: " + $dBException->getMessage()
+        ]);
+
+        exit();
     }
-
-    exit();
+} else {
+    http_response_code(400);
+    echo json_encode([
+        "error" => "No se enviaron todos los parametros."
+    ]);
 }
-
-http_response_code(400);
-echo json_encode([
-    "error" => "No se enviaron todos los parametros."
-]);

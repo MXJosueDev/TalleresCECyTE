@@ -1,30 +1,23 @@
 <?php
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use MXJosueDev\TalleresCecyte\lib\DB;
+use MXJosueDev\TalleresCecyte\lib\db\DB;
+use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
 
-$db = new DB();
-$conn = $db->getConnection();
-if (!$conn) {
-    echo "<h5 class=\"text-center\">Ocurrio un error al intentar conectarse con la base de datos</h5>";
-    return;
-}
-
-$commentariesStmt = $conn->prepare(DB::QUERIES["get_all_commentaries_data"]);
-
-if ($commentariesStmt) {
-    if ($commentariesStmt->execute()) {
-        $commentariesResult = $commentariesStmt->get_result();
-    }
+try {
+    $commentaries = DB::getAllCommentaries();
+} catch (DBException $dBException) {
+    DB::renderException($dBException);
+    exit();
 }
 
 ?>
 
-<?php if ($commentariesResult->num_rows === 0) { ?>
+<?php if (count($commentaries) === 0) { ?>
     <h4 class="text-center">No hay ningun comentario.</h4>
 <?php } else { ?>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
-        <?php while (($commentary = $commentariesResult->fetch_assoc()) !== null) { ?>
+        <?php foreach ($commentaries as $commentary) { ?>
             <div class="col">
                 <div class="card shadow w-100 h-100">
                     <div class="card-body">
@@ -37,10 +30,6 @@ if ($commentariesStmt) {
                     </div>
                 </div>
             </div>
-        <?php
-        }
-
-        $commentariesResult->free();
-        ?>
+        <?php } ?>
     </div>
 <?php } ?>

@@ -10,12 +10,12 @@ const nodeAssets = copy.nodeAssets.map(asset => {
 	};
 });
 
-const assets = copy.assets.map(asset => {
-	return {
-		from: path.resolve(__dirname, 'src', 'assets', 'image', asset),
-		to: path.resolve(__dirname, 'public', 'assets', 'image'),
-	};
-});
+// const assets = copy.assets.map(asset => {
+// 	return {
+// 		from: path.resolve(__dirname, 'src', 'assets', 'image', asset),
+// 		to: path.resolve(__dirname, 'public', 'assets', 'image'),
+// 	};
+// });
 
 module.exports = {
 	entry: './src/index.js',
@@ -52,7 +52,7 @@ module.exports = {
 	plugins: [
 		new CopyPlugin({
 			// Only if required
-			patterns: [...nodeAssets, ...assets],
+			patterns: [...nodeAssets/* , ...assets */],
 		}),
 	],
 };

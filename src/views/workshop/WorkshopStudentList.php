@@ -2,21 +2,20 @@
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use MXJosueDev\TalleresCecyte\lib\DB;
+use MXJosueDev\TalleresCecyte\lib\db\DB;
+use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
 
-$recordsStmt = $conn->prepare(DB::QUERIES['get_all_records']);
-$recordsStmt->bind_param("i", $commentary);
-
-if ($recordsStmt) {
-    if ($recordsStmt->execute()) {
-        $recordsResult = $recordsStmt->get_result();
-    }
+try {
+    $records = DB::getAllRecords($workshopId);
+} catch (DBException $dBException) {
+    DB::renderException($dBException);
+    exit();
 }
 
 ?>
 
-<div class="bg-body-tertiary py-3 px-4"> <!-- TODO: Compontent -->
-    <a href="/taller/registro/<?php echo $commentary ?>" class="fs-5">
+<div class="bg-body-tertiary py-3 px-4">
+    <a href="/taller/registro/<?php echo $workshopId ?>" class="fs-5">
         <i class="fa-solid fa-arrow-left"></i>
     </a>
 </div>
@@ -45,7 +44,7 @@ if ($recordsStmt) {
                     </thead>
 
                     <tbody class="text-uppercase">
-                        <?php while (($record = $recordsResult->fetch_assoc()) !== null) { ?>
+                        <?php foreach ($records as $record) { ?>
                             <tr>
                                 <td><?php echo $record['control_number'] ?></td>
                                 <td><?php echo $record['last_name'] ?></td>
@@ -65,6 +64,6 @@ if ($recordsStmt) {
     </div>
 
     <div class="d-flex justify-content-end">
-        <a class="btn btn-success" href="/taller/print/<?php echo $commentary ?>" target="_blank">Generar lista de asistencia</a>
+        <a class="btn btn-success" href="/taller/print/<?php echo $workshopId ?>" target="_blank">Generar lista de asistencia</a>
     </div>
 </div>

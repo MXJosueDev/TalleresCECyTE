@@ -2,14 +2,14 @@
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
-use MXJosueDev\TalleresCecyte\lib\DB;
+use MXJosueDev\TalleresCecyte\lib\db\DB;
+use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
 
-$carieersStmt = $conn->prepare(DB::QUERIES["get_carieers"]);
-
-if ($carieersStmt) {
-    if ($carieersStmt->execute()) {
-        $carieersResult = $carieersStmt->get_result();
-    }
+try {
+    $carieers = DB::getCarieers();
+} catch (DBException $dBException) {
+    DB::renderException($dBException);
+    exit();
 }
 
 ?>
@@ -54,13 +54,9 @@ if ($carieersStmt) {
                 <label for="career" class="form-label">Especialidad:</label>
                 <select class="form-select" id="career" name="career" required>
                     <option value="" selected>-- Selecciona --</option>
-                    <?php while (($carieerData = $carieersResult->fetch_assoc()) !== null) { ?>
+                    <?php foreach ($carieers as $carieerData) { ?>
                         <option value="<?php echo $carieerData['career_id'] ?>"><?php echo $carieerData['name'] ?></option>
-                    <?php
-                    }
-
-                    $carieersResult->free();
-                    ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-12 col-md-6">
@@ -92,7 +88,7 @@ if ($carieersStmt) {
 
         <div class="row g-3 mt-4">
             <div class="col-12 col-md-6">
-                <a class="btn btn-outline-primary w-100 p-3" href="/taller/lista/<?php echo $commentary ?>">Ver registrados</a>
+                <a class="btn btn-outline-primary w-100 p-3" href="/taller/lista/<?php echo $workshopId ?>">Ver registrados</a>
             </div>
             <div class="col-12 col-md-6">
                 <input class="btn btn-primary w-100 p-3" type="submit" value="Registrarse">
@@ -104,7 +100,7 @@ if ($carieersStmt) {
 </form>
 
 <script>
-    const workshop = <?php echo $commentary ?>;
+    const workshop = <?php echo $workshopId ?>;
     const full = <?php echo $workshopData['max_capacity'] - $workshopData['registered'] <= 0 ? "true" : "false" ?>;
 
     $(() => {
@@ -128,7 +124,7 @@ if ($carieersStmt) {
                     })
                     .done(() => {
                         alert.removeClass("alert-danger");
-                        
+
                         alert.removeClass("d-none");
                         alert.addClass("alert-success");
                         alert.text("¡Te has registrado con exito!");

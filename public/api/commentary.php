@@ -1,11 +1,12 @@
 <?php
 
-error_reporting(0);
+// error_reporting(0);
 
 require_once '../../vendor/autoload.php';
 
 use MXJosueDev\TalleresCecyte\utils\ClientUtils;
-use MXJosueDev\TalleresCecyte\lib\DB;
+use MXJosueDev\TalleresCecyte\lib\db\DB;
+use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
 
 if (isset($_POST["commentary"])) {
     $commentary = $_POST["commentary"];
@@ -16,45 +17,23 @@ if (isset($_POST["commentary"])) {
         echo json_encode([
             "error" => "El comentario no puede tener mas de 4096 caracteres."
         ]);
+        
         exit();
     }
 
-    $db = new DB();
-    $conn = $db->getConnection();
-    if (!$conn) {
-        http_response_code(500);
+    try {
+        DB::registerCommentary($commentary, $ip);
+    } catch (DBException $dBException) {
         echo json_encode([
-            "error" => "No se pudo conectar a la base de datos."
+            "error" => "DBError: " . $dBException->getMessage()
         ]);
+        http_response_code(500);
+
         exit();
     }
-
-    $workshopStmt = $conn->prepare(DB::QUERIES["register_commentary"]);
-
-    if ($workshopStmt) {
-        $workshopStmt->bind_param('ss', $commentary, $ip);
-
-        try {
-            if (!$workshopStmt->execute()) {
-                echo http_response_code(500);
-                echo json_encode([
-                    "error" => "No se pudo guardar el comentario."
-                ]);
-                exit();
-            }
-        } catch (Exception $exception) {
-            http_response_code(500);
-            echo json_encode([
-                "error" => "No se pudo guardar el comentario."
-            ]);
-            exit();
-        }
-    }
-
-    exit();
+} else {
+    echo json_encode([
+        "error" => "No se enviaron todos los parametros."
+    ]);
+    http_response_code(400);
 }
-
-echo json_encode([
-    "error" => "No se enviaron todos los parametros."
-]);
-http_response_code(400);
