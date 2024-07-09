@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use MXJosueDev\TalleresCecyte\lib\DB;
 
@@ -14,7 +14,7 @@ $workshopStmt = $conn->prepare(DB::QUERIES["get_all_workshops_data"]);
 
 if ($workshopStmt) {
     if ($workshopStmt->execute()) {
-        $commentariesResult = $workshopStmt->get_result();
+        $workshopResult = $workshopStmt->get_result();
     }
 }
 
@@ -22,7 +22,7 @@ if ($workshopStmt) {
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
     <?php
-    while (($commentary = $commentariesResult->fetch_assoc()) !== null) { ?>
+    while (($commentary = $workshopResult->fetch_assoc()) !== null) { ?>
         <div class="col">
             <div class="card shadow w-100 h-100">
                 <div class="ratio ratio-16x9">
@@ -47,6 +47,6 @@ if ($workshopStmt) {
     <?php
     }
 
-    $commentariesResult->free();
+    $workshopResult->free();
     ?>
 </div>

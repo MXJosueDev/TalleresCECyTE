@@ -6,7 +6,7 @@
     </div>
     <div class="mt-4">
         <?php
-        require __DIR__ . "/../components/Administrative.php";
+        require __DIR__ . "/../../components/help/AdministrativeCards.php";
         ?>
     </div>
 </div>

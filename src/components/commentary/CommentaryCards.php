@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use MXJosueDev\TalleresCecyte\lib\DB;
 
@@ -29,7 +29,8 @@ if ($commentariesStmt) {
                 <div class="card shadow w-100 h-100">
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-center">#<?php echo $commentary['commentary_id'] ?></h5>
-                        <h6 class="card-subtitle"><b>From:</b> <?php echo $commentary['client_ip'] ?></h6>
+                        <h6 class="card-subtitle"><b>IP del cliente:</b> <?php echo $commentary['client_ip'] ?></h6>
+                        <h6 class="card-subtitle mt-1"><b>Fecha:</b> <?php echo $commentary['register_date'] ?></h6>
                         <div class="mt-4">
                             <textarea rows="7" class="form-control" maxlength="4096" readonly style="resize: none;"><?php echo $commentary['commentary'] ?></textarea>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace MXJosueDev\TalleresCecyte\lib;
+namespace MXJosueDev\TalleresCecyte\utils;
 
 class ClientUtils
 {

@@ -1,7 +1,8 @@
 <?php
-// error_reporting(0);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+error_reporting(0);
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use MXJosueDev\TalleresCecyte\lib\DB;
 
@@ -25,10 +26,16 @@ $workshopStmt = $conn->prepare(DB::QUERIES["get_workshop_data"]);
 if ($workshopStmt) {
     $workshopStmt->bind_param("i", $commentary);
     if ($workshopStmt->execute()) {
-        $commentariesResult = $workshopStmt->get_result();
-        $workshopData = $commentariesResult->fetch_assoc();
+        $workshopResult = $workshopStmt->get_result();
 
-        $commentariesResult->free();
+        if ($workshopResult->num_rows === 0) {
+            http_response_code(404);
+            exit();
+        }
+
+        $workshopData = $workshopResult->fetch_assoc();
+
+        $workshopResult->free();
     }
 }
 
@@ -51,7 +58,6 @@ ob_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista</title>
-    <!-- <link rel="stylesheet" href="/assets/lib/bootstrap.min.css"> -->
 
     <style>
         * {

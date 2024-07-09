@@ -8,7 +8,7 @@
     <div id="registerWrapper">
         <?php
 
-        require __DIR__ . "/../components/WorkshopForm.php";
+        require __DIR__ . "/../../components/workshop/WorkshopForm.php";
 
         ?>
     </div>

@@ -20,6 +20,22 @@ class DB
 
     public function __construct()
     {
+        $this->reconnect();
+    }
+
+    public function getConnection(): \mysqli|false
+    {
+        if ($this->conn instanceof \mysqli) {
+            if ($this->conn->connect_error || !$this->conn->ping()) {
+                return $this->reconnect();
+            }
+        }
+
+        return $this->conn;
+    }
+
+    private function reconnect(): \mysqli|false
+    {
         Env::load();
 
         $hostname = $_ENV["HOSTNAME"] ?? "";
@@ -32,15 +48,6 @@ class DB
             $this->conn = new \mysqli($hostname, $username, $password, $database, $port);
         } catch (Exception $exception) {
             $this->conn = false;
-        }
-    }
-
-    public function getConnection(): \mysqli|false
-    {
-        if ($this->conn instanceof \mysqli) {
-            if ($this->conn->connect_error || !$this->conn->ping()) {
-                return false;
-            }
         }
 
         return $this->conn;

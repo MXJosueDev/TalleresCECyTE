@@ -1,12 +1,12 @@
 <?php
 
-// error_reporting(0);
+error_reporting(0);
 
-$workshopViews = [
-    "inicio" => "inicio.php",
-    "talleres" => "talleres.php",
-    "comentarios" => "comentarios.php",
-    "ayuda" => "ayuda.php",
+$navViews = [
+    "inicio" => "Home.php",
+    "talleres" => "Workshops.php",
+    "comentarios" => "Commentary.php",
+    "ayuda" => "Help.php",
 ];
 
 $view = $_GET["nav"] ?? "inicio";
@@ -70,7 +70,7 @@ $view = $_GET["nav"] ?? "inicio";
         }
 
         /* Aside */
-        @keyframes Rotar {
+        @keyframes Rotate {
             0% {
                 transform: rotate(0deg);
             }
@@ -85,7 +85,7 @@ $view = $_GET["nav"] ?? "inicio";
         }
 
         #asideLogo {
-            animation: Rotar 6s infinite;
+            animation: Rotate 6s infinite;
             animation-timing-function: linear;
         }
     </style>
@@ -94,13 +94,13 @@ $view = $_GET["nav"] ?? "inicio";
 <body>
     <div id="root">
         <?php
-        require "../src/components/HeadTitle.php";
-        require "../src/components/Navbar.php";
+        require __DIR__ . "/../src/components/shared/HeadTitle.php";
+        require __DIR__ . "/../src/components/shared/Navbar.php";
 
-        $errorView = __DIR__ . '/../src/views/error.php';
+        $errorView = __DIR__ . '/../src/views/Error.php';
 
         $view = match (true) {
-            isset($workshopViews[$view]) => __DIR__ . '/../src/views/' . $workshopViews[$view],
+            isset($navViews[$view]) => __DIR__ . '/../src/views/nav/' . $navViews[$view],
             true => $errorView
         };
         ?>
@@ -113,7 +113,7 @@ $view = $_GET["nav"] ?? "inicio";
         </div>
         <?php
 
-        require "../src/components/Footer.php";
+        require __DIR__ . "/../src/components/shared/Footer.php";
         ?>
     </div>
 </body>

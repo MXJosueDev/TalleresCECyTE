@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../../vendor/autoload.php";
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
 use MXJosueDev\TalleresCecyte\lib\DB;
 
@@ -36,11 +36,11 @@ if ($carieersStmt) {
             </div>
             <div class="col-12 col-md-6">
                 <label for="name" class="form-label">Nombre:</label>
-                <input class="form-control" id="name" name="name" required></input>
+                <input class="form-control" id="name" name="name" maxlength="32" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="last-name" class="form-label">Apellidos:</label>
-                <input class="form-control" id="last-name" name="last-name" required></input>
+                <input class="form-control" id="last-name" name="last-name" maxlength="64" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="sex" class="form-label">Sexo:</label>
@@ -123,10 +123,12 @@ if ($carieersStmt) {
                 $('#workshopForm input, #workshopForm select').attr('readonly', 'readonly').attr('disabled', 'disabled');
 
                 $.post({
-                        url: "/api/register.php",
+                        url: "/api/workshop.php",
                         data: formData
                     })
                     .done(() => {
+                        alert.removeClass("alert-danger");
+                        
                         alert.removeClass("d-none");
                         alert.addClass("alert-success");
                         alert.text("¡Te has registrado con exito!");
@@ -151,7 +153,7 @@ if ($carieersStmt) {
                         setTimeout(() => {
                             alert.addClass("d-none");
                             alert.removeClass("alert-danger");
-                        }, 3 * 1000);
+                        }, 6 * 1000);
                     })
                     .always(() => {
                         button.attr("value", "Registrarse");

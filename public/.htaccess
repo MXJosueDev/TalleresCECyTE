@@ -1,9 +1,9 @@
 RewriteEngine On
 
-RewriteRule ^$ nav.php
-RewriteRule ^(talleres|comentarios|ayuda)/?$ nav.php?nav=$1
+RewriteRule ^$ Nav.php
+RewriteRule ^(talleres|comentarios|ayuda)/?$ Nav.php?nav=$1
 
-RewriteRule ^taller/(registro|lista)/([0-9]+)/?$ taller.php?view=$1&workshop=$2 
-RewriteRule ^taller/print/([0-9]+)/?$ printLista.php?workshop=$1
+RewriteRule ^taller/(registro|lista)/([0-9]+)/?$ workshop/Workshop.php?view=$1&workshop=$2 
+RewriteRule ^taller/print/([0-9]+)/?$ workshop/WorkshopPDFList.php?workshop=$1
 
-RewriteRule ^admin/comentarios/?$ listaComentarios.php
+RewriteRule ^admin/comentarios/?$ admin/CommentaryList.php

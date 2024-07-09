@@ -1,9 +1,10 @@
 <?php
-// error_reporting(0);
+
+error_reporting(0);
 
 require_once '../../vendor/autoload.php';
 
-use MXJosueDev\TalleresCecyte\lib\ClientUtils;
+use MXJosueDev\TalleresCecyte\utils\ClientUtils;
 use MXJosueDev\TalleresCecyte\lib\DB;
 
 if (isset($_POST["commentary"])) {
@@ -33,10 +34,18 @@ if (isset($_POST["commentary"])) {
     if ($workshopStmt) {
         $workshopStmt->bind_param('ss', $commentary, $ip);
 
-        if (!$workshopStmt->execute()) {
-            echo http_response_code(500);
+        try {
+            if (!$workshopStmt->execute()) {
+                echo http_response_code(500);
+                echo json_encode([
+                    "error" => "No se pudo guardar el comentario."
+                ]);
+                exit();
+            }
+        } catch (Exception $exception) {
+            http_response_code(500);
             echo json_encode([
-                "error" => "No se pudo guardar el comentario en la base de datos."
+                "error" => "No se pudo guardar el comentario."
             ]);
             exit();
         }

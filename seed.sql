@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS `record` (
     `last_name` VARCHAR(64) NOT NULL,
     `sex` ENUM('male', 'female') NOT NULL,
     `career_id` INT(11) NOT NULL,
-    `semester` ENUM('1', '2', '3', '4', '5', '6'),
-    `group` ENUM('a', 'b', 'c'),
+    `semester` ENUM('1', '2', '3', '4', '5', '6') NOT NULL,
+    `group` ENUM('a', 'b', 'c') NOT NULL,
     `register_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(`workshop_id`) REFERENCES `workshop`(`workshop_id`),
     FOREIGN KEY(`career_id`) REFERENCES `career`(`career_id`)
@@ -56,6 +56,7 @@ GROUP BY
 CREATE TABLE IF NOT EXISTS `commentary` (
     `commentary_id` INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `commentary` TEXT NOT NULL,
+    `register_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `client_ip` VARCHAR(15)
 );
 

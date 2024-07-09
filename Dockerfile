@@ -44,7 +44,6 @@ RUN docker-php-ext-install mysqli
 # Habilita el módulo de reescritura de Apache y la configuración de .htaccess
 RUN a2enmod rewrite
 
-
 # Configura DocumentRoot
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
@@ -68,3 +67,5 @@ RUN echo "ADMIN_PASSWORD=${ADMIN_PASSWORD}" >> /var/www/html/.env
 
 # Exponer el puerto 80
 EXPOSE 80
+
+CMD [ "apache2-foreground" ]

@@ -1,10 +1,10 @@
 <?php
 
-use MXJosueDev\TalleresCecyte\lib\Auth;
-
 // error_reporting(0);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use MXJosueDev\TalleresCecyte\auth\Auth;
 
 $auth = new Auth();
 
@@ -24,15 +24,15 @@ $auth = new Auth();
 <body>
     <div id="root">
         <?php
-        require "../src/components/HeadTitle.php";
+        require __DIR__ . "/../../src/components/shared/HeadTitle.php";
 
-        $errorView = __DIR__ . '/../src/views/error.php';
+        $errorView = __DIR__ . '/../../src/views/Error.php';
         ?>
 
         <div class="min-vh-100">
             <?php try {
                 if ($auth->isAuth()) {
-                    require __DIR__ . "/../src/views/listaComentarios.php";
+                    require __DIR__ . "/../../src/views/admin/CommentariesList.php";
                 } else {
                     $auth->renderForm();
                 }
@@ -42,7 +42,7 @@ $auth = new Auth();
         </div>
         <?php
 
-        require "../src/components/Footer.php";
+        require __DIR__ . "/../../src/components/shared/Footer.php";
         ?>
     </div>
 </body>

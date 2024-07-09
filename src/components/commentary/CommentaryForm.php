@@ -32,6 +32,9 @@
                     data: commentaryForm.serialize()
                 })
                 .done(() => {
+                    alert.removeClass("alert-danger");
+                    alert.removeClass("alert-success");
+                    
                     commentaryForm.trigger("reset");
                     alert.removeClass("d-none");
                     alert.addClass("alert-success");
@@ -39,7 +42,10 @@
                 })
                 .catch((res) => {
                     const data = JSON.parse(res.responseText);
-
+                    
+                    alert.removeClass("alert-danger");
+                    alert.removeClass("alert-success");
+                    
                     alert.removeClass("d-none");
                     alert.addClass("alert-danger");
                     alert.text("Ocurrio un error al enviar el comentario: " + data.error);

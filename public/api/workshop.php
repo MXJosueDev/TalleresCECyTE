@@ -1,10 +1,11 @@
 <?php
-// error_reporting(0);
+
+error_reporting(0);
 
 require_once '../../vendor/autoload.php';
 
 use MXJosueDev\TalleresCecyte\lib\DB;
-use MXJosueDev\TalleresCecyte\lib\Utils;
+use MXJosueDev\TalleresCecyte\utils\Utils;
 
 if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST["name"]) && isset($_POST["last-name"]) && isset($_POST["sex"]) && isset($_POST["career"]) && isset($_POST["semester"]) && isset($_POST["group"])) {
     $workshopId = (int) $_POST["workshop"];
@@ -41,6 +42,43 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
         exit();
     }
 
+    // Name & Last name FIXME:
+    // $nameRegex = "/$[a-zA-Z+]^/";
+    // if (!preg_match($nameRegex, $name) || !preg_match($nameRegex, $lastName)) {
+    //     http_response_code(400);
+    //     echo json_encode([
+    //         "error" => "El nombre y apellidos solo deben contener letras."
+    //     ]);
+    //     exit();
+    // }
+    
+    // Sex
+    if(!in_array($sex, ["male", "female"])) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "El sexo es invalido."
+        ]);
+        exit();    
+    }
+    
+    // Semester
+    if(!in_array($semester, ["1", "2", "3", "4", "5", "6"])) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "El semestre es invalido."
+        ]);
+        exit();    
+    }
+    
+    // Group
+    if(!in_array($group, ["a", "b", "c"])) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "El grupo es invalido."
+        ]);
+        exit();    
+    }
+
     // DB
     $db = new DB();
     $conn = $db->getConnection();
@@ -58,10 +96,10 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
     if ($workshopDataStmt) {
         $workshopDataStmt->bind_param('i', $workshopId);
         if ($workshopDataStmt->execute()) {
-            $commentariesResult = $workshopDataStmt->get_result();
-            $workshopData = $commentariesResult->fetch_assoc();
+            $workshopResult = $workshopDataStmt->get_result();
+            $workshopData = $workshopResult->fetch_assoc();
 
-            $commentariesResult->free();
+            $workshopResult->free();
         }
     }
 
@@ -73,18 +111,24 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
         exit();
     }
 
-    // TODO: Verify control number
-
     // Insert
     $workshopRegisterStmt = $conn->prepare(DB::QUERIES["register_record"]);
 
     if ($workshopRegisterStmt) {
         $workshopRegisterStmt->bind_param('issssiss', $workshopId, $controlNumber, $name, $lastName, $sex, $careerId, $semester, $group);
 
-        if (!$workshopRegisterStmt->execute()) {
-            echo http_response_code(500);
+        try {
+            if (!$workshopRegisterStmt->execute()) {
+                http_response_code(500);
+                echo json_encode([
+                    "error" => "No se pudo guardar el registro (Probablemente el numero de control ya fue registrado)"
+                ]);
+                exit();
+            }
+        } catch (Exception $exception) {
+            http_response_code(500);
             echo json_encode([
-                "error" => "No se pudo guardar el registro en la base de datos."
+                "error" => "No se pudo guardar el registro (Probablemente el numero de control ya fue registrado)"
             ]);
             exit();
         }
@@ -93,7 +137,7 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
     exit();
 }
 
+http_response_code(400);
 echo json_encode([
     "error" => "No se enviaron todos los parametros."
 ]);
-http_response_code(400);

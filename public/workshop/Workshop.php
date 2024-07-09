@@ -1,13 +1,14 @@
 <?php
-// error_reporting(0);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+error_reporting(0);
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use MXJosueDev\TalleresCecyte\lib\DB;
 
 $workshopViews = [
-    "registro" => "registro.php",
-    "lista" => "lista.php",
+    "registro" => "WorkshopRegister.php",
+    "lista" => "WorkshopStudentList.php",
 ];
 
 if (!isset($_GET["workshop"]) || !isset($_GET["view"])) {
@@ -31,10 +32,16 @@ $workshopStmt = $conn->prepare(DB::QUERIES["get_workshop_data"]);
 if ($workshopStmt) {
     $workshopStmt->bind_param("i", $commentary);
     if ($workshopStmt->execute()) {
-        $commentariesResult = $workshopStmt->get_result();
-        $workshopData = $commentariesResult->fetch_assoc();
+        $workshopResult = $workshopStmt->get_result();
+        
+        if ($workshopResult->num_rows === 0) {
+            http_response_code(404);
+            exit();
+        }
 
-        $commentariesResult->free();
+        $workshopData = $workshopResult->fetch_assoc();
+
+        $workshopResult->free();
     }
 }
 ?>
@@ -53,12 +60,12 @@ if ($workshopStmt) {
 <body>
     <div id="root">
         <?php
-        require "../src/components/HeadTitle.php";
+        require __DIR__ . "/../../src/components/shared/HeadTitle.php";
 
-        $errorView = __DIR__ . '/../src/views/error.php';
+        $errorView = __DIR__ . '/../../src/views/Error.php';
 
         $view = match (true) {
-            isset($workshopViews[$view]) => __DIR__ . '/../src/views/' . $workshopViews[$view],
+            isset($workshopViews[$view]) => __DIR__ . '/../../src/views/workshop/' . $workshopViews[$view],
             true => $errorView
         };
         ?>
@@ -72,7 +79,7 @@ if ($workshopStmt) {
         </div>
         <?php
 
-        require "../src/components/Footer.php";
+        require __DIR__ . "/../../src/components/shared/Footer.php";
         ?>
     </div>
 </body>

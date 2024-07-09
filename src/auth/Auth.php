@@ -1,6 +1,8 @@
 <?php
 
-namespace MXJosueDev\TalleresCecyte\lib;
+namespace MXJosueDev\TalleresCecyte\auth;
+
+use MXJosueDev\TalleresCecyte\lib\Env;
 
 class Auth
 {
@@ -19,6 +21,6 @@ class Auth
 
     public function renderForm(): void
     {
-        require __DIR__ . "/../views/auth.php";
+        require __DIR__ . "/../views/auth/Auth.php";
     }
 }
