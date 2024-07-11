@@ -45,15 +45,15 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
         exit();
     }
 
-    // Name & Last name FIXME:
-    // $nameRegex = "/$[a-zA-Z+]^/";
-    // if (!preg_match($nameRegex, $name) || !preg_match($nameRegex, $lastName)) {
-    //     http_response_code(400);
-    //     echo json_encode([
-    //         "error" => "El nombre y apellidos solo deben contener letras."
-    //     ]);
-    //     exit();
-    // }
+    // Name & Last name
+    $nameRegex = "/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$/";
+    if (!preg_match($nameRegex, $name) || !preg_match($nameRegex, $lastName)) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "El nombre y apellidos solo deben contener letras."
+        ]);
+        exit();
+    }
 
     // Sex
     if (!in_array($sex, ["male", "female"])) {

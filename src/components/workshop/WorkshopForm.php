@@ -8,8 +8,8 @@ use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
 try {
     $carieers = DB::getCarieers();
 } catch (DBException $dBException) {
-    DB::renderException($dBException);
-    exit();
+    DB::renderException($dBException, true);
+    return;
 }
 
 ?>

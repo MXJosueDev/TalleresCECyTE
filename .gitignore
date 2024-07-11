@@ -9,5 +9,3 @@ public/assets/*
 !public/assets/image
 
 .env
-
-dbvalues.sql
