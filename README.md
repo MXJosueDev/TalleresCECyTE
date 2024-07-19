@@ -29,7 +29,7 @@ Asegurate de tener instalado las siguientes dependencias: **(Importante)**
 -   Composer
 -   NPM
 
-#
+<br />
 
 **Pasos**:
 
