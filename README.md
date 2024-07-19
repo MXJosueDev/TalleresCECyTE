@@ -55,7 +55,7 @@ Cambia el nombre del archivo llamado [.env.sample](/.env.sample) a solo `.env`, 
 
 #### #4. ¡Listo!
 
-### Usando Railway: 
+### Usando Railway:
 
 El proyecto ya cuenta con todas las configuraciones necesarias para desplegarse en Railway, lo unico que necesitas hacer es importar el proyecto desde el repositorio de GitHub a tu proyecto en Railway y establecer las variables de entorno correspondientes a la base de datos y la contraseña del usuario administrador (Ver [.env.sample](/.env.sample))
 
@@ -68,7 +68,7 @@ Asegurate de tener instalado Docker en tu sistema operativo.
 Colocate en el directorio raiz del proyecto y ejecuta el siguiente comando:
 
 ```bash
-docker build -t cecyte-workshops --build-arg HOSTNAME=your_db_host --build-arg USERNAME=your_db_user --build-arg PASSWORD=your_db_password --build-arg DATABASE=your_db_name --build-arg PORT=your_db_port --build-arg ADMIN_PASSWORD=your_admin_password
+docker build . -t cecyte-workshops --build-arg HOSTNAME=your_db_host --build-arg USERNAME=your_db_user --build-arg PASSWORD=your_db_password --build-arg DATABASE=your_db_name --build-arg PORT=your_db_port --build-arg ADMIN_PASSWORD=your_admin_password
 ```
 
 (Cambia las build args por las variables de entorno deseadas)

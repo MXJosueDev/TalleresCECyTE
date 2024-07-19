@@ -26,7 +26,7 @@ COPY ./ /app
 WORKDIR /app
 
 # Instala dependencias de NPM
-RUN npm install
+RUN npm ci
 
 # Ejecuta el build de NPM
 RUN npm run build

@@ -3,8 +3,6 @@ vendor
 
 composer.lock
 
-package-lock.json
-
 public/assets/*
 !public/assets/image
 

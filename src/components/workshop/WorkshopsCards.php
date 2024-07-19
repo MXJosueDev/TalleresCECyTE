@@ -37,9 +37,5 @@ try {
             </div>
 
         </div>
-    <?php
-    }
-
-    $workshopResult->free();
-    ?>
+    <?php } ?>
 </div>
