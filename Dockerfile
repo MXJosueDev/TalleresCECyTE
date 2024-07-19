@@ -25,10 +25,8 @@ COPY ./ /app
 # Define el directorio de trabajo
 WORKDIR /app
 
-RUN npm install -g npm@latest
-RUN npm -v
-
-RUN npx webpack -v
+RUN npm list
+RUN npm list -g
 
 # Instala dependencias de NPM
 RUN npm ci
