@@ -25,11 +25,11 @@ COPY ./ /app
 # Define el directorio de trabajo
 WORKDIR /app
 
-RUN npm list
-RUN npm list -g
-
 # Instala dependencias de NPM
 RUN npm ci
+
+RUN npm list
+RUN npm list -g
 
 # Ejecuta el build de NPM
 RUN npm run build
