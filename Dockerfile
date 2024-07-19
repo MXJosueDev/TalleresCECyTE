@@ -28,7 +28,7 @@ WORKDIR /app
 # Instala dependencias de NPM
 RUN npm ci
 
-ENV PATH /app/node_modules/.bin:$PATH
+RUN npm install -g webpack webpack-cli copy-webpack-plugin css-loader sass-loader style-loader
 
 RUN npm list
 RUN npm list -g
