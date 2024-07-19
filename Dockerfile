@@ -46,6 +46,12 @@ COPY --from=node-build /app /var/www/html/
 # Instala el modulo mysqli
 RUN docker-php-ext-install mysqli
 
+# SSL
+RUN apt install snapd
+
+RUN snap install --classic certbot
+
+
 # Habilita el módulo de reescritura de Apache y la configuración de .htaccess
 RUN a2enmod rewrite
 
@@ -61,6 +67,9 @@ ARG PORT
 
 ARG ADMIN_PASSWORD
 
+ARG DOMAIN
+ARG EMAIL
+
 # Crea el archivo .env con los valores de la base de datos
 RUN echo "HOSTNAME=${HOSTNAME}" > /var/www/html/.env
 RUN echo "USERNAME=${USERNAME}" >> /var/www/html/.env
@@ -70,7 +79,10 @@ RUN echo "PORT=${PORT}" >> /var/www/html/.env
 
 RUN echo "ADMIN_PASSWORD=${ADMIN_PASSWORD}" >> /var/www/html/.env
 
-# Exponer el puerto 80
-EXPOSE 80
+# SSL 
+RUN certbot --apache --non-interactive --agree-tos --email ${EMAIL} -d ${DOMAIN}
 
-CMD [ "apache2-foreground" ]
+# Exponer el puerto 80
+EXPOSE 80 443
+
+ENTRYPOINT [ "docker-start.sh" ]
