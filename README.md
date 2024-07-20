@@ -68,7 +68,7 @@ Asegurate de tener instalado Docker en tu sistema operativo.
 Colocate en el directorio raiz del proyecto y ejecuta el siguiente comando:
 
 ```bash
-docker build . -t cecyte-workshops --build-arg HOSTNAME=your_db_host --build-arg USERNAME=your_db_user --build-arg PASSWORD=your_db_password --build-arg DATABASE=your_db_name --build-arg PORT=your_db_port --build-arg ADMIN_PASSWORD=your_admin_password
+docker build . -t cecyte-workshops --build-arg HOSTNAME=your_db_host --build-arg USERNAME=your_db_user --build-arg PASSWORD=your_db_password --build-arg DATABASE=your_db_name --build-arg PORT=your_db_port --build-arg ADMIN_PASSWORD=your_admin_password --build-arg DOMAIN=yourdomain.com --build-arg EMAIL=youremail@email.com
 ```
 
 (Cambia las build args por las variables de entorno deseadas)
