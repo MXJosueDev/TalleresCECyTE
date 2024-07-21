@@ -3,42 +3,58 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: talleres-app
+    container_name: ${CONTAINER_PREFIX}app
     ports:
-      - "80:80"
-      - "443:443"
+      - "${APP_HTTP_PORT}:80"
+      - "${APP_HTTPS_PORT}:443"
+    environment:
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
     depends_on:
       - db
     restart: always
-    mem_limit: 512M
+    networks:
+      - talleres
+    mem_reservation: ${APP_RESERVED_MEM}
+    mem_limit: ${APP_MAX_MEM}
 
   db:
     image: mariadb:11.4.2
-    container_name: talleres-db
+    container_name: ${CONTAINER_PREFIX}db
     ports:
-      - "3306:3306"
+      # Exports?
+      - "${DB_PORT}:3306"
     environment:
-      MARIADB_ROOT_PASSWORD: yourpassword
-      MARIADB_DATABASE: talleres
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_DATABASE}
     volumes:
       - db_data:/var/lib/mysql
     restart: always
-    mem_limit: 256M
+    networks:
+      - talleres
+    mem_reservation: ${DB_RESERVED_MEM}
+    mem_limit: ${DB_MAX_MEM}
 
   phpmyadmin:
     image: phpmyadmin:5.2.1
-    container_name: talleres-phpmyadmin
+    container_name: ${CONTAINER_PREFIX}phpmyadmin
     ports:
-      - "8080:80"
+      - "${PMA_PORT}:80"
     depends_on:
       - db
     restart: always
-    mem_limit: 128M
+    networks:
+      - talleres
+    mem_reservation: ${PMA_RESERVED_MEM}
+    mem_limit: ${PMA_MAX_MEM}
 
 volumes:
-  db_data:
-
+  db_data: []
 
 networks:
-  default:
-    name: "talleres-network"
+  talleres:
+    driver: bridge

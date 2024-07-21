@@ -188,24 +188,15 @@ class DB
 
     private function reconnect(): \mysqli|false
     {
-        $hostname = Env::getenv("DB_PORT_3306_TCP_ADDR") ?? Env::getenv("DB_HOST");
+        $hostname = Env::getenv("DB_HOST") ?? "db";
+        $port = Env::getenv("DB_PORT") ?? "3306";
         $username = Env::getenv("DB_USER") ?? "root";
-        $password = Env::getenv("DB_ENV_MARIADB_ROOT_PASSWORD") ?? Env::getenv("DB_PASSWORD");
-        $database = Env::getenv("DB_DATABASE") ?? "talleres"; // Need at run
-        $port = Env::getenv("DB_PORT_3306_TCP_PORT") ?? Env::getenv("DB_PORT");
-
-        // var_dump($hostname);
-        // var_dump($username);
-        // var_dump($password);
-        // var_dump($database);
-        // var_dump($port);
-        // echo "<br/>";
+        $password = Env::getenv("DB_PASSWORD");
+        $database = Env::getenv("DB_DATABASE");
 
         try {
             $this->conn = new \mysqli($hostname, $username, $password, $database, $port);
         } catch (Exception $exception) {
-            echo $exception;
-            echo "\n\n\n";
             $this->conn = false;
         }
 
