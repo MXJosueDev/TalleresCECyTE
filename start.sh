@@ -1,6 +1,6 @@
 #!/bin/sh
 set -a
-source .env.docker
+. ./.env.docker
 set +a
 
 docker compose up "$@"

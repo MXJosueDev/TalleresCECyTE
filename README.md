@@ -73,7 +73,12 @@ Da doble click o ejecuta desde tu terminal el archivo [start.bat](/start.bat)
 
 ##### Linux:
 
-Da doble click o ejecuta desde tu terminal el archivo [start.sh](/start.sh)
+1. Ejecuta el siguiente comando para darle permisos de ejecucion al archivo de inicio:
+```bash
+chmod +x start.sh
+```
+
+2. Da doble click o ejecuta desde tu terminal el archivo [start.sh](/start.sh)
 
 #### #3. Base de datos
 
