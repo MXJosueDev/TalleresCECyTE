@@ -6,15 +6,6 @@ En esta guia encontrarás los pasos para deplegar el proyecto en cualquiera de l
 -   RAILWAY (Produccion)
 -   DOCKER Ubuntu (Produccion)
 
-## Base de datos (MySQL o MariaDB)
-
-Sigue estos pasos para inicializar la base de datos **(Necesario para desplegar el proyecto)**
-
-1. Conectate a tu servidor de base de datos (PHPMyAdmin, CLI, etc) y crea una base de datos con el nombre de tu preferencia (Lo necesitarás mas tarde)
-2. Copia el contenido del archivo [seed.sql](/seed.sql), pegalo y ejecutalo
-3. Establece los instructores y talleres por defecto (Como en el archivo de ejemplo [sampleValues.sql](/sampleValues.sql))
-4. ¡Listo! Tu base de datos esta lista para funcionar con el proyecto
-
 ## Proyecto
 
 ### Usando XAMPP:
