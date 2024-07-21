@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -33,6 +31,10 @@ services:
     depends_on:
       - db
     restart: always
+
+volumes:
+  db_data:
+
 
 networks:
   default:
