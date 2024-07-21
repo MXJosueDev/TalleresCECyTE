@@ -63,7 +63,7 @@ El proyecto ya cuenta con todas las configuraciones necesarias para desplegarse 
 
 Asegurate de tener instalado Docker en tu sistema operativo.
 
-#### #1. Construir la imagen
+#### #1. Construir la imagen (DOCKER-COMPOSE)
 
 Colocate en el directorio raiz del proyecto y ejecuta el siguiente comando:
 
