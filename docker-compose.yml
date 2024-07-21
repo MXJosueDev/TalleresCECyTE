@@ -19,10 +19,8 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: talleres
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user_password
+      MARIADB_ROOT_PASSWORD: yourpassword
+      MARIADB_DATABASE: talleres
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -33,11 +31,8 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - d
+      - db
     restart: always
-
-volumes:
-  db_data:
 
 networks:
   default:
