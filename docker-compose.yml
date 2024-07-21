@@ -18,8 +18,14 @@ services:
     restart: always
     networks:
       - talleres
-    mem_reservation: ${APP_RESERVED_MEM}
-    mem_limit: ${APP_MAX_MEM}
+    deploy:
+      resources:
+        limits:
+          cpus: '${APP_MAX_CPU}'
+          memory: ${APP_MAX_MEM}
+        reservations:
+          cpus: '${APP_RESERVED_CPU}'
+          memory: ${APP_RESERVED_MEM}
 
   db:
     image: mariadb:11.4.2
@@ -37,8 +43,14 @@ services:
     restart: always
     networks:
       - talleres
-    mem_reservation: ${DB_RESERVED_MEM}
-    mem_limit: ${DB_MAX_MEM}
+    deploy:
+      resources:
+        limits:
+          cpus: '${DB_MAX_CPU}'
+          memory: ${DB_MAX_MEM}
+        reservations:
+          cpus: '${DB_RESERVED_CPU}'
+          memory: ${DB_RESERVED_MEM}
 
   phpmyadmin:
     image: phpmyadmin:5.2.1
@@ -50,8 +62,14 @@ services:
     restart: always
     networks:
       - talleres
-    mem_reservation: ${PMA_RESERVED_MEM}
-    mem_limit: ${PMA_MAX_MEM}
+    deploy:
+      resources:
+        limits:
+          cpus: '${PMA_MAX_CPU}'
+          memory: ${PMA_MAX_MEM}
+        reservations:
+          cpus: '${PMA_RESERVED_CPU}'
+          memory: ${PMA_RESERVED_MEM}
 
 volumes:
   db_data:
