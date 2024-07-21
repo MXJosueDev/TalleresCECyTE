@@ -188,13 +188,11 @@ class DB
 
     private function reconnect(): \mysqli|false
     {
-        Env::load();
-
-        $hostname = $_ENV["HOSTNAME"] ?? "";
-        $username = $_ENV["USERNAME"] ?? "";
-        $password = $_ENV["PASSWORD"] ?? "";
-        $database = $_ENV["DATABASE"] ?? "";
-        $port = $_ENV["PORT"] ?? 3306;
+        $hostname = Env::getenv("DB_HOST") ?? "db";
+        $port = Env::getenv("DB_PORT") ?? "3306";
+        $username = Env::getenv("DB_USER") ?? "root";
+        $password = Env::getenv("DB_PASSWORD");
+        $database = Env::getenv("DB_DATABASE");
 
         try {
             $this->conn = new \mysqli($hostname, $username, $password, $database, $port);

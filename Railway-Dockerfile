@@ -49,11 +49,17 @@ RUN a2enmod rewrite
 # Configura DocumentRoot
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
+# Define variables de entorno para la base de datos
+ARG MYSQLHOST
+ARG MYSQLUSER
+ARG MYSQLPASSWORD
+ARG MYSQLDATABASE
+ARG MYSQLPORT
+
+ARG PANEL_ADMIN_PASSWORD
+
 # Establece las variables de entorno
-ENV LOADENV=OK
+ENV LOADENV=OK DB_HOST=${MYSQLHOST} DB_USER=${MYSQLUSER} DB_PASSWORD=${MYSQLPASSWORD} DB_DATABASE=${MYSQLDATABASE} DB_PORT=${MYSQLPORT} PANEL_ADMIN_PASSWORD=${PANEL_ADMIN_PASSWORD}
 
 # Exponer el puerto 80
 EXPOSE 80
-
-# Comando de inicio 
-CMD [ "apache2-foreground" ]

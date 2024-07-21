@@ -9,11 +9,9 @@ class Auth
     public function isAuth(): bool
     {
         if (isset($_POST["auth_password"])) {
-            Env::load();
-
             $password = $_POST["auth_password"];
 
-            if ($password === $_ENV["ADMIN_PASSWORD"]) return true;
+            if ($password === Env::getenv("PANEL_ADMIN_PASSWORD")) return true;
         }
 
         return false;

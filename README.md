@@ -6,15 +6,6 @@ En esta guia encontrarás los pasos para deplegar el proyecto en cualquiera de l
 -   RAILWAY (Produccion)
 -   DOCKER Ubuntu (Produccion)
 
-## Base de datos (MySQL o MariaDB)
-
-Sigue estos pasos para inicializar la base de datos **(Necesario para desplegar el proyecto)**
-
-1. Conectate a tu servidor de base de datos (PHPMyAdmin, CLI, etc) y crea una base de datos con el nombre de tu preferencia (Lo necesitarás mas tarde)
-2. Copia el contenido del archivo [seed.sql](/seed.sql), pegalo y ejecutalo
-3. Establece los instructores y talleres por defecto (Como en el archivo de ejemplo [sampleValues.sql](/sampleValues.sql))
-4. ¡Listo! Tu base de datos esta lista para funcionar con el proyecto
-
 ## Proyecto
 
 ### Usando XAMPP:
@@ -47,38 +38,48 @@ npm install
 npm run build
 ```
 
-#### #2. Establece las variables de entorno (.env)
+#### #2. Base de datos
+
+1. Conectate a tu servidor de base de datos (PHPMyAdmin) y crea una base de datos con el nombre de tu preferencia (Lo necesitarás mas tarde)
+2. Copia el contenido del archivo [seed.sql](/seed.sql), pegalo y ejecutalo
+3. Establece los instructores y talleres por defecto (Como en el archivo de ejemplo [sampleValues.sql](/sampleValues.sql))
+4. ¡Listo! Tu base de datos esta lista para funcionar con el proyecto
+
+#### #3. Establece las variables de entorno (.env)
 
 Cambia el nombre del archivo llamado [.env.sample](/.env.sample) a solo `.env`, después establece correctamente los valores de conexión a base de datos y constraseña de usuario administrador
 
-#### #3. Inicia el servidor de Apache en tu _xampp control_
+#### #4. Inicia el servidor de Apache en tu _xampp control_
 
-#### #4. ¡Listo!
+#### #5. ¡Listo!
 
 ### Usando Railway:
 
-El proyecto ya cuenta con todas las configuraciones necesarias para desplegarse en Railway, lo unico que necesitas hacer es importar el proyecto desde el repositorio de GitHub a tu proyecto en Railway y establecer las variables de entorno correspondientes a la base de datos y la contraseña del usuario administrador (Ver [.env.sample](/.env.sample))
+El proyecto ya cuenta con todas las configuraciones necesarias para desplegarse en Railway, lo unico que necesitas hacer es importar el proyecto desde el repositorio de GitHub a tu proyecto en Railway, crear una base de datos en tu proyecto de Railway, conectarse a la base de datos pegar el contenido del siguiente archivo [seed.sql](/seed.sql) seguido del archivo [sampleValues.sql](/sampleValues.sql), y despues establecer las variables de entorno correspondientes a la base de datos y la contraseña del usuario administrador (Ver [.env.sample](/.env.sample))
 
 ### Usando Docker:
 
 Asegurate de tener instalado Docker en tu sistema operativo.
 
-#### #1. Construir la imagen
+#### #1. Establece las variables de entorno personalizadas en el .env.docker
 
-Colocate en el directorio raiz del proyecto y ejecuta el siguiente comando:
+#### #2. Ejecuta el archivo de inicio
 
-```bash
-docker build . -t cecyte-workshops --build-arg HOSTNAME=your_db_host --build-arg USERNAME=your_db_user --build-arg PASSWORD=your_db_password --build-arg DATABASE=your_db_name --build-arg PORT=your_db_port --build-arg ADMIN_PASSWORD=your_admin_password
-```
+(Nota: puedes opcionalmente pasarle parametros al archivo de inicio, como --build o -d)
 
-(Cambia las build args por las variables de entorno deseadas)
+##### Windows:
 
-#### #2. Ejecuta el contenedor de docker con la imagen construida
+Da doble click o ejecuta desde tu terminal el archivo [start.bat](/start.bat)
 
-Ejecuta el siguiente comando:
+##### Linux:
 
-```bash
-docker run -p 80:80 -d cecyte-workshops
-```
+Da doble click o ejecuta desde tu terminal el archivo [start.sh](/start.sh)
 
-#### 3. ¡Listo!
+#### #3. Base de datos
+
+1. Conectate a PHPMyAdmin en el puerto que estableciste y selecciona la base de datos con el nombre que estableciste en las variables de entorno
+2. Copia el contenido del archivo [seed.sql](/seed.sql), pegalo y ejecutalo
+3. Establece los instructores y talleres por defecto (Como en el archivo de ejemplo [sampleValues.sql](/sampleValues.sql))
+4. ¡Listo! Tu base de datos esta lista para funcionar con el proyecto
+
+#### #4. ¡Listo!
