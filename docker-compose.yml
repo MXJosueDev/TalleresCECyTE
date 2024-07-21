@@ -10,9 +10,10 @@ services:
     depends_on:
       - db
     restart: always
+    mem_limit: 512M
 
   db:
-    image: mariadb:latest
+    image: mariadb:11.4.2
     container_name: talleres-db
     ports:
       - "3306:3306"
@@ -22,15 +23,17 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: always
+    mem_limit: 256M
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin:5.2.1
     container_name: talleres-phpmyadmin
     ports:
       - "8080:80"
     depends_on:
       - db
     restart: always
+    mem_limit: 128M
 
 volumes:
   db_data:
