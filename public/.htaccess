@@ -1,3 +1,12 @@
+<IfModule mod_headers.c>
+    ExpiresActive On
+
+    ExpiresByType image/gif "access plus 15 days"
+    ExpiresByType image/png "access plus 15 days"
+    ExpiresByType image/jpg "access plus 15 days"
+    ExpiresByType image/jpeg "access plus 15 days"
+</IfModule>
+
 RewriteEngine On
 
 RewriteRule ^$ Nav.php

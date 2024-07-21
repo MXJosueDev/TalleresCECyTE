@@ -46,6 +46,9 @@ RUN docker-php-ext-install mysqli
 # Habilita el módulo de reescritura de Apache y la configuración de .htaccess
 RUN a2enmod rewrite
 
+# Modulo de cache
+RUN a2enmod expires
+
 # Configura DocumentRoot
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
