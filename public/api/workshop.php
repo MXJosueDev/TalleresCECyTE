@@ -13,8 +13,8 @@ use MXJosueDev\TalleresCecyte\utils\Utils;
 if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST["name"]) && isset($_POST["last-name"]) && isset($_POST["sex"]) && isset($_POST["career"]) && isset($_POST["semester"]) && isset($_POST["group"])) {
     $workshopId = (int) $_POST["workshop"];
     $controlNumber = $_POST["control-number"];
-    $name = $_POST["name"];
-    $lastName = $_POST["last-name"];
+    $name = Utils::normalizeText($_POST["name"]);
+    $lastName = Utils::normalizeText($_POST["last-name"]);
     $sex = $_POST["sex"];
     $careerId = (int) $_POST["career"];
     $semester = $_POST["semester"];

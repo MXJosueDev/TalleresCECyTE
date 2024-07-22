@@ -32,15 +32,15 @@ try {
         <div class="row g-3">
             <div class="col-12">
                 <label for="control-number" class="form-label">Numero de control:</label>
-                <input class="form-control" placeholder="22411070130000" id="control-number" name="control-number" minlength="14" maxlength="14" required></input>
+                <input type="text" class="form-control" placeholder="22411070130000" id="control-number" name="control-number" minlength="14" maxlength="14" pattern="[0-9]{14}" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="name" class="form-label">Nombre:</label>
-                <input class="form-control" id="name" name="name" maxlength="32" required></input>
+                <input type="text" class="form-control" id="name" name="name" maxlength="32" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="last-name" class="form-label">Apellidos:</label>
-                <input class="form-control" id="last-name" name="last-name" maxlength="64" required></input>
+                <input type="text" class="form-control" id="last-name" name="last-name" maxlength="64" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="sex" class="form-label">Sexo:</label>
@@ -108,12 +108,17 @@ try {
         const button = $("#workshopForm input[type=\"submit\"");
         const alert = $("#workshopForm .alert");
 
+
         if (!full) {
             workshopForm.submit((event) => {
                 event.preventDefault();
 
                 button.addClass("disabled");
                 button.attr("value", "Enviando...");
+
+                $("#workshopForm input[type=\"text\"]").each((index, input) => {
+                    input.value = input.value.trim().replace(/\s+/g, ' ');
+                });
 
                 const formData = workshopForm.serialize() + "&workshop=" + workshop;
                 $('#workshopForm input, #workshopForm select').attr('readonly', 'readonly').attr('disabled', 'disabled');

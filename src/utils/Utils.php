@@ -10,4 +10,9 @@ class Utils
 
         return implode($result);
     }
+
+    public static function normalizeText(string $text): string
+    {
+        return preg_replace("/\s+/", " ", trim($text));
+    }
 }
