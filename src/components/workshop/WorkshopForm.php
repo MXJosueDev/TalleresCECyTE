@@ -32,15 +32,15 @@ try {
         <div class="row g-3">
             <div class="col-12">
                 <label for="control-number" class="form-label">Numero de control:</label>
-                <input type="text" class="form-control" placeholder="22411070130000" id="control-number" name="control-number" minlength="14" maxlength="14" pattern="[0-9]{14}" required></input>
+                <input type="text" class="form-control" placeholder="Ingresa tu numero de control" id="control-number" name="control-number" minlength="14" maxlength="14" pattern="[0-9]{14}" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="name" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="name" name="name" maxlength="32" required></input>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa tu nombre" maxlength="32" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="last-name" class="form-label">Apellidos:</label>
-                <input type="text" class="form-control" id="last-name" name="last-name" maxlength="64" required></input>
+                <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Ingresa tus apellidos" maxlength="64" required></input>
             </div>
             <div class="col-12 col-md-6">
                 <label for="sex" class="form-label">Sexo:</label>
@@ -95,7 +95,7 @@ try {
             </div>
         </div>
 
-        <div class="alert mt-3 d-none" role="alert"></div>
+        <div id="alert" class="alert mt-3 d-none" role="alert"></div>
     </div>
 </form>
 
@@ -147,10 +147,10 @@ try {
                         alert.removeClass("d-none");
                         alert.addClass("alert-danger");
                         alert.text("Ocurrio un error al intentar registrarte: " + data.error);
-
+                        
                         $('#workshopForm input, #workshopForm select').removeAttr('readonly').removeAttr('disabled');
                         button.removeClass("disabled");
-
+                        
                         setTimeout(() => {
                             alert.addClass("d-none");
                             alert.removeClass("alert-danger");
@@ -158,6 +158,9 @@ try {
                     })
                     .always(() => {
                         button.attr("value", "Registrarse");
+
+                        location.hash = "";
+                        location.hash = "#alert";
                     });
             });
         } else {

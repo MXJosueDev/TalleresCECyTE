@@ -10,7 +10,7 @@
 
     <input class="btn btn-primary mt-4 w-100 p-3" type="submit" value="Enviar comentario">
 
-    <div class="alert mt-3 d-none" role="alert"></div>
+    <div id="alert" class="alert mt-3 d-none" role="alert"></div>
 </form>
 
 <script src="/assets/lib/jquery.min.js"></script>
@@ -34,7 +34,7 @@
                 .done(() => {
                     alert.removeClass("alert-danger");
                     alert.removeClass("alert-success");
-                    
+
                     commentaryForm.trigger("reset");
                     alert.removeClass("d-none");
                     alert.addClass("alert-success");
@@ -42,10 +42,10 @@
                 })
                 .catch((res) => {
                     const data = JSON.parse(res.responseText);
-                    
+
                     alert.removeClass("alert-danger");
                     alert.removeClass("alert-success");
-                    
+
                     alert.removeClass("d-none");
                     alert.addClass("alert-danger");
                     alert.text("Ocurrio un error al enviar el comentario: " + data.error);
@@ -53,6 +53,9 @@
                 .always(() => {
                     button.removeClass("disabled");
                     button.attr("value", "Enviar comentario");
+
+                    location.hash = "";
+                    location.hash = "#alert";
 
                     setTimeout(() => {
                         alert.addClass("d-none");
