@@ -1,6 +1,6 @@
 <form id="commentaryForm" class="shadow rounded bg-body-tertiary p-4 pt-2">
     <div class="d-flex justify-content-center">
-        <img class="img-fluid" src="/assets/image/logo.png" alt="CECyTE Logo" style="max-width: 200px;">
+        <img class="img-fluid" src="/assets/image/logo.webp" alt="CECyTE Logo" style="max-width: 200px;">
     </div>
 
     <div>

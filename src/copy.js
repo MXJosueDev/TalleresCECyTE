@@ -7,7 +7,7 @@ const JS = [
 ];
 
 // const IMG = [
-// 	/* 'hero.jpg', 'logo.png', 'futbol_v.png' */
+// 	/* 'hero.webp', 'logo.webp', 'futbol_v.webp' */
 // ];
 
 module.exports = {

@@ -132,7 +132,7 @@ ob_start();
 </head>
 
 <body>
-    <!-- <img src="http://localhost/assets/image/logo.png" id="cecyte" alt="CECyTE Logo"> --> <!-- FIXME: Usa muchos recursos -->
+    <!-- <img src="http://localhost/assets/image/logo.webp" id="cecyte" alt="CECyTE Logo"> --> <!-- FIXME: Usa muchos recursos -->
 
     <h2>COLEGIO DE ESTUDIOS CIENTIFICOS Y TECNOLOGICOS DEL ESTADO DE GUANAJUATO</h2>
     <hr />

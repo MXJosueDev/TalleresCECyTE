@@ -26,73 +26,73 @@ INSERT INTO
 VALUES
     (
         'Futbol Femenil',
-        '/assets/image/futbol_femenil.png',
+        '/assets/image/futbol_femenil.webp',
         '35',
         '2'
     ),
     (
         'Futbol Varonil',
-        '/assets/image/futbol_varonil.png',
+        '/assets/image/futbol_varonil.webp',
         '35',
         '1'
     ),
     (
         'Pintura',
-        '/assets/image/pintura.png',
+        '/assets/image/pintura.webp',
         '35',
         '3'
     ),
     (
         'Danza',
-        '/assets/image/danza.png',
+        '/assets/image/danza.webp',
         '35',
         '4'
     ),
     (
         'Ajedrez',
-        '/assets/image/ajedrez.png',
+        '/assets/image/ajedrez.webp',
         '35',
         '5'
     ),
     (
         'Guitarra',
-        '/assets/image/guitarra.png',
+        '/assets/image/guitarra.webp',
         '35',
         '6'
     ),
     (
         'Basquetbol Varonil',
-        '/assets/image/basquetbol_varonil.png',
+        '/assets/image/basquetbol_varonil.webp',
         '35',
         '7'
     ),
     (
         'Basquetbol Femenil',
-        '/assets/image/basquetbol_femenil.png',
+        '/assets/image/basquetbol_femenil.webp',
         '35',
         '7'
     ),
     (
         'Bastoneras',
-        '/assets/image/bastoneras.png',
+        '/assets/image/bastoneras.webp',
         '35',
         '8'
     ),
     (
         'Tabla Ritmica',
-        '/assets/image/tabla_ritmica.png',
+        '/assets/image/tabla_ritmica.webp',
         '35',
         '9'
     ),
     (
         'Robotica',
-        '/assets/image/robotica.png',
+        '/assets/image/robotica.webp',
         '35',
         '10'
     ),
     (
         'Banda de Guerra',
-        '/assets/image/banda_guerra.png',
+        '/assets/image/banda_guerra.webp',
         '35',
         '11'
     );
