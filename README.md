@@ -57,28 +57,21 @@ Cambia el nombre del archivo llamado [.env.sample](/.env.sample) a solo `.env`, 
 
 El proyecto ya cuenta con todas las configuraciones necesarias para desplegarse en Railway, lo unico que necesitas hacer es importar el proyecto desde el repositorio de GitHub a tu proyecto en Railway, crear una base de datos en tu proyecto de Railway, conectarse a la base de datos pegar el contenido del siguiente archivo [seed.sql](/seed.sql) seguido del archivo [sampleValues.sql](/sampleValues.sql), y despues establecer las variables de entorno correspondientes a la base de datos y la contraseña del usuario administrador (Ver [.env.sample](/.env.sample))
 
-### Usando Docker:
+### Usando Docker (LAMP):
 
 Asegurate de tener instalado Docker en tu sistema operativo.
 
-#### #1. Establece las variables de entorno personalizadas en el .env.docker
+#### #1. Establece las variables de entorno
 
-#### #2. Ejecuta el archivo de inicio
+Cambia el nombre del archivo llamado [.env.docker](/.env.docker) a solo `.env`, después establece correctamente los valores personalizados
 
-(Nota: puedes opcionalmente pasarle parametros al archivo de inicio, como --build o -d)
+#### #2. Iniciar docker compose
 
-##### Windows:
-
-Da doble click o ejecuta desde tu terminal el archivo [start.bat](/start.bat)
-
-##### Linux:
-
-1. Ejecuta el siguiente comando para darle permisos de ejecucion al archivo de inicio:
-```bash
-chmod +x start.sh
+Ejecuta el siguiente comando en tu terminal
+```shell
+docker compose up
 ```
-
-2. Da doble click o ejecuta desde tu terminal el archivo [start.sh](/start.sh)
+Opcionalmente puedes añadir flags como -d (Modo dettach) o --build (Para forzar la reconstrucción de la imagen)
 
 #### #3. Base de datos
 
