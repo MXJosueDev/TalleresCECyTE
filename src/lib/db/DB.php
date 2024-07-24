@@ -44,7 +44,11 @@ class DB
     {
         if (!isset(self::QUERIES[$queryKey])) throw new DBInvalidQueryException("El query que especificaste no existe.");
 
-        $stmt = self::getGlobalConn()->prepare(self::QUERIES[$queryKey]);
+        try {
+            $stmt = self::getGlobalConn()->prepare(self::QUERIES[$queryKey]);
+        } catch (Exception $exception) {
+            throw new DBPrepareException("Ocurrio un error al preparar la consulta.");
+        }
 
         if (!$stmt) throw new DBPrepareException("Ocurrio un error al preparar la consulta.");
         if (self::QUERIES_PARAMS[$queryKey] !== null) $stmt->bind_param(self::QUERIES_PARAMS[$queryKey], ...$queryParams);
