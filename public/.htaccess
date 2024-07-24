@@ -5,6 +5,7 @@
     ExpiresByType image/png "access plus 15 days"
     ExpiresByType image/jpg "access plus 15 days"
     ExpiresByType image/jpeg "access plus 15 days"
+    ExpiresByType image/webp "access plus 15 days"
 </IfModule>
 
 RewriteEngine On
