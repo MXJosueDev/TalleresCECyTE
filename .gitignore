@@ -1,6 +1,10 @@
 node_modules
 vendor
 
+package-lock.json
+
+bun.lockb
+
 composer.lock
 
 public/assets/*

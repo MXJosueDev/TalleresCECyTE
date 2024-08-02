@@ -26,7 +26,7 @@ COPY ./ /app
 WORKDIR /app
 
 # Instala dependencias de NPM
-RUN npm ci
+RUN npm install
 
 RUN npm install -g webpack webpack-cli copy-webpack-plugin css-loader sass-loader style-loader
 
