@@ -7,7 +7,7 @@ WORKDIR /temp/prod
 RUN composer install --no-interaction --prefer-dist --no-dev --no-scripts --no-progress
 RUN composer dump-autoload --optimize
 
-FROM oven/bun:1 AS bun-base
+FROM oven/bun:1.1.21 AS bun-base
 
 FROM bun-base AS node-deps
 
