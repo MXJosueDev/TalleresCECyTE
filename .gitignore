@@ -3,7 +3,7 @@ vendor
 
 package-lock.json
 
-bun.lockb
+pnpm-lock.yaml
 
 composer.lock
 
