@@ -1,13 +1,9 @@
 node_modules
 vendor
 
-package-lock.json
-
-pnpm-lock.yaml
-
-composer.lock
-
 public/assets/*
 !public/assets/image
 
 .env
+
+/.vscode
