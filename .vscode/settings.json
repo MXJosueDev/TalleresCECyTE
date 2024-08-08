@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "Talleres"
+    "liveServer.settings.multiRootWorkspaceName": "Talleres",
+    "php.version": "8.0"
 }

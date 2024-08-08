@@ -1,20 +1,24 @@
 INSERT INTO
     `teacher`(`name`, `last_name`)
 VALUES
-    ('Juan Manuel', 'Trejo Hernandez'),
-    ('Ramon', 'Arreola Moreno'),
-    ('Julia Adriana', 'Morales Avalos'),
-    ('Maria Cecilia', 'Ruiz Vargas'),
-    ('Diego', 'Andrés Garcia'),
-    ('Mauro Leandro', 'Almaraz Cordoba'),
-    ('Martín de Jesus', 'Tinajero Mendoza'),
-    ('Guadalupe Karina', 'Beltran Martinez'),
-    (
-        'Beatriz Esquivel',
-        '- Norma Angelica Martinez Martinez'
-    ),
-    ('Ignacio', 'Tinajero Camacho'),
-    ('David', 'Martinez');
+    ('Ramon', 'Arreola'), -- #1
+    ('Juan Manuel', 'Trejo'), -- #2
+    ('Martin', 'Tinajero'), -- #3
+    ('Pendiente', ''), -- #4
+    ('Mariana', 'Caballero'), -- #5
+    ('Karina', 'Beltran'), -- #6
+    ('Norma', 'y Betty'), -- #7
+    ('Andres', 'Diego'), -- #8
+    ('Ignacio', 'Tinajero'), -- #9
+    ('Ramiro', 'Valdez'), -- #10
+    ('Ceci', 'Ruiz'), -- #11
+    ('Erick', 'Perez'), -- #12
+    ('Maricela', 'Caballero'), -- #13
+    ('Eli', 'Hernandez'), -- #14
+    ('Maribel', 'Caballero'), -- #15
+    ('Rafa Jimenez', 'y Flor'), -- #16
+    ('Isabel' 'Zepeda'); -- #17
+
 
 INSERT INTO
     `workshop`(
@@ -26,73 +30,103 @@ INSERT INTO
 VALUES
     (
         'Futbol Femenil',
-        '/assets/image/futbol_femenil.webp',
-        '35',
-        '2'
-    ),
-    (
-        'Futbol Varonil',
-        '/assets/image/futbol_varonil.webp',
-        '35',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/futbol_femenil.webp',
+        '25',
         '1'
     ),
     (
-        'Pintura',
-        '/assets/image/pintura.webp',
-        '35',
+        'Futbol Varonil',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/futbol_varonil.webp',
+        '20',
+        '2'
+    ),
+    (
+        'Basquetbol Mixto',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/basquetbol_mixto.webp',
+        '20',
         '3'
     ),
     (
-        'Danza',
-        '/assets/image/danza.webp',
-        '35',
+        'Voleibol',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/voleibol.webp',
+        '24',
         '4'
     ),
     (
-        'Ajedrez',
-        '/assets/image/ajedrez.webp',
-        '35',
+        'Cardio-Hit',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/cardio-hit.webp',
+        '25',
         '5'
     ),
     (
-        'Guitarra',
-        '/assets/image/guitarra.webp',
-        '35',
+        'Bastoneras',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/bastoneras.webp',
+        '40',
         '6'
     ),
     (
-        'Basquetbol Varonil',
-        '/assets/image/basquetbol_varonil.webp',
-        '35',
+        'Porristas',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/porristas.webp',
+        '60',
         '7'
     ),
     (
-        'Basquetbol Femenil',
-        '/assets/image/basquetbol_femenil.webp',
-        '35',
-        '7'
-    ),
-    (
-        'Bastoneras',
-        '/assets/image/bastoneras.webp',
-        '35',
+        'Ajedrez',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/ajedrez.webp',
+        '25',
         '8'
     ),
     (
-        'Tabla Ritmica',
-        '/assets/image/tabla_ritmica.webp',
-        '35',
+        'Robotica',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/robotica.webp',
+        '20',
         '9'
     ),
     (
-        'Robotica',
-        '/assets/image/robotica.webp',
-        '35',
+        'Banda de Guerra',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/banda_guerra.webp',
+        '24',
         '10'
     ),
     (
-        'Banda de Guerra',
-        '/assets/image/banda_guerra.webp',
-        '35',
+        'Danza',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/danza.webp',
+        '17',
         '11'
+    ),
+    (
+        'Animadores',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/animadores.webp',
+        '30',
+        '12'
+    ),
+    (
+        'Canto y Guitarra',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/canto_y_guitarra.webp',
+        '20',
+        '13'
+    ),
+    (
+        'Teatro',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/teatro.webp',
+        '24',
+        '14'
+    ),
+    (
+        'Creaciones Literarias',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/creaciones_literarias.webp',
+        '12',
+        '15'
+    ),
+    (
+        'Huerto Escolar',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/huerto_escolar.webp',
+        '30',
+        '16'
+    ),
+    (
+        'Tejido para principiantes y Reposteria basica',
+        'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/tejido_reposteria.webp',
+        '12',
+        '17'
     );

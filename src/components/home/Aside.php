@@ -5,7 +5,7 @@
 
     <div class="overflow-hidden">
         <a href="https://sae.cecyteg.edu.mx:4046/PortalAlumno/Account/Login">
-            <img src="/assets/image/logo.webp" id="asideLogo" class="img-fluid rounded-circle" alt="CECyTE Guanajuato Logo">
+            <img src="https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/logo.webp" id="asideLogo" class="img-fluid rounded-circle" alt="CECyTE Guanajuato Logo">
         </a>
     </div>
 
