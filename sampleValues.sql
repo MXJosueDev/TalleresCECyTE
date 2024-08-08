@@ -17,7 +17,7 @@ VALUES
     ('Eli', 'Hernandez'), -- #14
     ('Maribel', 'Caballero'), -- #15
     ('Rafa Jimenez', 'y Flor'), -- #16
-    ('Isabel' 'Zepeda'); -- #17
+    ('Isabel', 'Zepeda'); -- #17
 
 
 INSERT INTO
@@ -125,7 +125,7 @@ VALUES
         '16'
     ),
     (
-        'Tejido para principiantes y Reposteria basica',
+        'Tejido y Reposteria basica',
         'https://raw.githubusercontent.com/MXJosueDev/workshops-statics/main/images/tejido_reposteria.webp',
         '12',
         '17'
