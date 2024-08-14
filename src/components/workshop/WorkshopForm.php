@@ -78,6 +78,7 @@ try {
                     <option value="a">A</option>
                     <option value="b">B</option>
                     <option value="c">C</option>
+                    <option value="d">D</option>
                 </select>
             </div>
 
@@ -147,10 +148,10 @@ try {
                         alert.removeClass("d-none");
                         alert.addClass("alert-danger");
                         alert.text("Ocurrio un error al intentar registrarte: " + data.error);
-                        
+
                         $('#workshopForm input, #workshopForm select').removeAttr('readonly').removeAttr('disabled');
                         button.removeClass("disabled");
-                        
+
                         setTimeout(() => {
                             alert.addClass("d-none");
                             alert.removeClass("alert-danger");

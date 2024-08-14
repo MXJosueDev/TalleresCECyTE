@@ -74,7 +74,7 @@ if (isset($_POST["workshop"]) && isset($_POST["control-number"]) && isset($_POST
     }
 
     // Group
-    if (!in_array($group, ["a", "b", "c"])) {
+    if (!in_array($group, ["a", "b", "c", "d"])) {
         http_response_code(400);
         echo json_encode([
             "error" => "El grupo es invalido."

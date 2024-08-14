@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `record` (
     `sex` ENUM('male', 'female') NOT NULL,
     `career_id` INT(11) NOT NULL,
     `semester` ENUM('1', '2', '3', '4', '5', '6') NOT NULL,
-    `group` ENUM('a', 'b', 'c') NOT NULL,
+    `group` ENUM('a', 'b', 'c', 'd') NOT NULL,
     `register_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(`workshop_id`) REFERENCES `workshop`(`workshop_id`),
     FOREIGN KEY(`career_id`) REFERENCES `career`(`career_id`)
