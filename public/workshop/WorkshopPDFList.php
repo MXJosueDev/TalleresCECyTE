@@ -2,39 +2,43 @@
 
 error_reporting(0);
 
-
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use Dompdf\Dompdf;
 
 use MXJosueDev\TalleresCecyte\lib\db\DB;
 use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
 use MXJosueDev\TalleresCecyte\utils\Utils;
 
-if (!isset($_GET["workshop"]) || !isset($_GET["start_date"]) || !isset($_GET["end_date"])) {
-    var_dump($_GET);
-    
+if (!isset($_GET["workshop"]) || !isset($_GET["start_date"]) || !isset($_GET["end_date"]) || !isset($_GET["day_of_week"])) {
     echo "Por favor ingresa todos los parametros.";
     http_response_code(400);
-    
+
     return;
 }
 
 // Cheking data
 $workshopId = $_GET["workshop"];
+$dayOfWeek = $_GET["day_of_week"];
+
+if ((int) $dayOfWeek < 1 || (int) $dayOfWeek > 7) {
+    echo "Por favor ingresa un dia de la semana valido.";
+    http_response_code(400);
+
+    return;
+}
 
 try {
     $from = new DateTimeImmutable($_GET["start_date"]);
     $to = new DateTimeImmutable($_GET["end_date"]);
-} catch(Exception) {
+} catch (Exception) {
     echo "Por favor ingresa una fecha valida.";
     http_response_code(400);
-    
+
     return;
 }
 
-$workshopDays = Utils::findWorkshopDays($from, $to, 4);
-
-var_dump($workshopDays);
-echo "HI";
+$workshopDays = Utils::findWorkshopDays($from, $to, $dayOfWeek);
 
 try {
     $workshopData = DB::getWorkshop($workshopId);
@@ -202,18 +206,6 @@ ob_start();
                             <div>
                                 <div><?php echo $day->format('d/m') ?></div>
                             </div>
-                            <!-- <div style="text-align: center; display:inline;"> -->
-                            <!-- <p> -->
-                            <!-- <center> -->
-                            <!-- <span> -->
-                            <!-- <div style="text-align: left;"> -->
-                            <!-- <span class="workshop-day"><?php echo $day->format('d/m') ?></d> -->
-                            <!-- </span> -->
-                            <!-- </div> -->
-                            <!-- </span> -->
-                            <!-- </center> -->
-                            <!-- </p> -->
-                            <!-- </div> -->
                         </th>
                     <?php } ?>
                 </tr>
@@ -240,7 +232,6 @@ ob_start();
 
 <?php
 
-use Dompdf\Dompdf;
 
 $html = ob_get_clean();
 

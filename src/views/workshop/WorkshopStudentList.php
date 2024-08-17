@@ -12,6 +12,8 @@ try {
     exit();
 }
 
+require __DIR__ . '/WorkshopAssistantForm.php';
+
 ?>
 
 <div class="bg-body-tertiary py-3 px-4">
@@ -64,6 +66,6 @@ try {
     </div>
 
     <div class="d-flex justify-content-end">
-        <a class="btn btn-success" href="/taller/print/<?php echo $workshopId ?>" target="_blank">Generar lista de asistencia</a>
+        <a class="btn btn-success" data-bs-toggle="modal" href="#assistantListForm">Generar lista de asistencia</a>
     </div>
 </div>

@@ -34,8 +34,6 @@ class Utils
         }
 
         while ($from < $to) {
-            var_dump($from);
-
             $result[] = $from;
             $from = $from->modify('+7 days');
         }
