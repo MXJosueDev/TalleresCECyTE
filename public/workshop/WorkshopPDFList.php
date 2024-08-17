@@ -2,19 +2,39 @@
 
 error_reporting(0);
 
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use MXJosueDev\TalleresCecyte\lib\db\DB;
 use MXJosueDev\TalleresCecyte\lib\db\exception\DBException;
+use MXJosueDev\TalleresCecyte\utils\Utils;
 
-if (!isset($_GET["workshop"])) {
+if (!isset($_GET["workshop"]) || !isset($_GET["start_date"]) || !isset($_GET["end_date"])) {
+    var_dump($_GET);
+    
     echo "Por favor ingresa todos los parametros.";
     http_response_code(400);
-
+    
     return;
 }
 
+// Cheking data
 $workshopId = $_GET["workshop"];
+
+try {
+    $from = new DateTimeImmutable($_GET["start_date"]);
+    $to = new DateTimeImmutable($_GET["end_date"]);
+} catch(Exception) {
+    echo "Por favor ingresa una fecha valida.";
+    http_response_code(400);
+    
+    return;
+}
+
+$workshopDays = Utils::findWorkshopDays($from, $to, 4);
+
+var_dump($workshopDays);
+echo "HI";
 
 try {
     $workshopData = DB::getWorkshop($workshopId);
@@ -38,7 +58,7 @@ ob_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista</title>
+    <title>Lista de Asistencia de <?php echo $workshopData['workshop_name'] ?></title>
 
     <style>
         * {
@@ -122,11 +142,29 @@ ob_start();
             border: 1px solid #000;
 
             padding: 0;
-            width: 2.2%;
+            width: auto;
         }
 
         .inline {
             display: inline-block;
+        }
+
+        .workshop-day {
+            font-size: 9px;
+            /* line-height: 10px; */
+        }
+
+        .workshop-day>div {
+            margin-left: calc(50% - 5px);
+            margin-top: calc(50%);
+
+            width: 10px;
+
+            overflow: visible;
+        }
+
+        .workshop-day>div>div {
+            transform: rotate(270deg);
         }
     </style>
 </head>
@@ -155,12 +193,28 @@ ob_start();
         <table class="table">
             <thead>
                 <tr>
-                    <th style="width: 12%;">N° Control</th>
-                    <th style="width: 18%;">Apellidos</th>
-                    <th style="width: 16%;">Nombre</th>
-                    <th style="width: 10%;">Grupo</th>
-                    <?php for ($i = 0; $i < 20; $i++) { ?>
-                        <th class="bordered"></th>
+                    <th style="width: 12%!important;">N° Control</th>
+                    <th style="width: 18%!important;">Apellidos</th>
+                    <th style="width: 16%!important;">Nombre</th>
+                    <th style="width: 10%!important;">Grupo</th>
+                    <?php foreach ($workshopDays as $day) { ?>
+                        <th class="bordered workshop-day">
+                            <div>
+                                <div><?php echo $day->format('d/m') ?></div>
+                            </div>
+                            <!-- <div style="text-align: center; display:inline;"> -->
+                            <!-- <p> -->
+                            <!-- <center> -->
+                            <!-- <span> -->
+                            <!-- <div style="text-align: left;"> -->
+                            <!-- <span class="workshop-day"><?php echo $day->format('d/m') ?></d> -->
+                            <!-- </span> -->
+                            <!-- </div> -->
+                            <!-- </span> -->
+                            <!-- </center> -->
+                            <!-- </p> -->
+                            <!-- </div> -->
+                        </th>
                     <?php } ?>
                 </tr>
             </thead>
@@ -172,7 +226,7 @@ ob_start();
                         <td><?php echo $record['last_name'] ?></td>
                         <td><?php echo $record['student_name'] ?></td>
                         <td><?php echo $record['semester'] . ' ' . $record['short_name'] . ' ' . $record['group'] ?></td>
-                        <?php for ($i = 0; $i < 20; $i++) { ?>
+                        <?php for ($i = 0; $i < count($workshopDays); $i++) { ?>
                             <td class="bordered"></td>
                         <?php } ?>
                     </tr>

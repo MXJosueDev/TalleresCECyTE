@@ -2,6 +2,8 @@
 
 namespace MXJosueDev\TalleresCecyte\utils;
 
+use DateTimeImmutable;
+
 class Utils
 {
     public static function getPart(array &$full, $length): string
@@ -14,5 +16,30 @@ class Utils
     public static function normalizeText(string $text): string
     {
         return preg_replace("/\s+/", " ", trim($text));
+    }
+
+    /**
+     * @param \DateTimeImmutable $from
+     * @param \DateTimeImmutable $to
+     * @return DateTimeImmutable[]
+     */
+    public static function findWorkshopDays(DateTimeImmutable $from, DateTimeImmutable $to, int $dayOfWeek): array
+    {
+        $currentDay = (int) $from->format("N");
+
+        if ($currentDay < $dayOfWeek) {
+            $from = $from->modify("+" . ($dayOfWeek - $currentDay) . " days");
+        } else if ($currentDay > $dayOfWeek) {
+            $from = $from->modify("+" . (7 - $currentDay + $dayOfWeek) . " days");
+        }
+
+        while ($from < $to) {
+            var_dump($from);
+
+            $result[] = $from;
+            $from = $from->modify('+7 days');
+        }
+
+        return $result ?? [];
     }
 }
