@@ -38,6 +38,13 @@ try {
     return;
 }
 
+if ($from > $to) {
+    echo "La fecha de inicio no puede ser mayor a la fecha de fin.";
+    http_response_code(400);
+
+    return;
+}
+
 $workshopDays = Utils::findWorkshopDays($from, $to, $dayOfWeek);
 
 try {
