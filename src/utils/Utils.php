@@ -25,6 +25,10 @@ class Utils
      */
     public static function findWorkshopDays(DateTimeImmutable $from, DateTimeImmutable $to, int $dayOfWeek): array
     {
+        if ($from > $to) {
+            return [];
+        }
+
         $currentDay = (int) $from->format("N");
 
         if ($currentDay < $dayOfWeek) {
@@ -33,10 +37,10 @@ class Utils
             $from = $from->modify("+" . (7 - $currentDay + $dayOfWeek) . " days");
         }
 
-        while ($from < $to) {
+        do {
             $result[] = $from;
             $from = $from->modify('+7 days');
-        }
+        } while ($from < $to);
 
         return $result ?? [];
     }
